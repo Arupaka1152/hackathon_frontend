@@ -12,10 +12,10 @@ type SignupRes = {
 function Signup() {
 
     const navigate = useNavigate();
-    const [ Name, setName] = useState("");
-    const [ Email, setEmail] = useState("");
-    const [ Password, setPassword] = useState("");
-    const [ PasswordForConfirmation, setPasswordForConfirmation] = useState("");
+    const [ Name, setName ] = useState("");
+    const [ Email, setEmail ] = useState("");
+    const [ Password, setPassword ] = useState("");
+    const [ PasswordForConfirmation, setPasswordForConfirmation ] = useState("");
 
     const onSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         if (Name === "" || Email === "" || Password === "" || PasswordForConfirmation === "") { 

@@ -12,8 +12,8 @@ type LoginRes = {
 function Login() {
 
     const navigate = useNavigate();
-    const [ Email, setEmail] = useState("");
-    const [ Password, setPassword] = useState("");
+    const [ Email, setEmail ] = useState("");
+    const [ Password, setPassword ] = useState("");
 
     const onSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         if (Email === "" || Password === "") {
