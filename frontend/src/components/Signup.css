@@ -6,13 +6,13 @@ body {
     height: 100vh;
 }
   
-.form {
+form {
     background-color: #15172b;
     border-radius: 20px;
     box-sizing: border-box;
-    height: 500px;
+    height: 550px;
     padding: 20px;
-    width: 320px;
+    width: 340px;
 }
   
 .title {
@@ -20,7 +20,17 @@ body {
     font-family: sans-serif;
     font-size: 36px;
     font-weight: 600;
-    margin-top: 30px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.login {
+    color: #eee;
+    font-family: sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 20px;
+    text-align: center;
 }
   
 .input-container {
@@ -30,39 +40,27 @@ body {
 }
   
 .ic1 {
-    margin-top: 40px;
+    margin-top: 35px;
 }
   
 .ic2 {
-    margin-top: 30px;
+    margin-top: 25px;
 }
   
-.input {
+input {
     background-color: #303245;
     border-radius: 12px;
     border: 0;
     box-sizing: border-box;
     color: #eee;
-    font-size: 18px;
+    font-size: 15px;
     height: 100%;
     outline: 0;
     padding: 4px 20px 0;
     width: 100%;
 }
-
-.placeholder {
-    color: #65657b;
-    font-family: sans-serif;
-    left: 20px;
-    line-height: 14px;
-    pointer-events: none;
-    position: absolute;
-    transform-origin: 0 50%;
-    transition: transform 200ms, color 200ms;
-    top: 20px;
-}
   
-.submit {
+button {
     background-color: #08d;
     border-radius: 12px;
     border: 0;
@@ -70,13 +68,13 @@ body {
     color: #eee;
     cursor: pointer;
     font-size: 18px;
+    font-weight: 600;
     height: 50px;
-    margin-top: 38px;
+    margin-top: 25px;
     text-align: center;
     width: 100%;
 }
   
-.submit:active {
+button:active {
     background-color: #06b;
 }
-  
