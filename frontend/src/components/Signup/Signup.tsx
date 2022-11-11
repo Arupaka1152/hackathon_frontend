@@ -50,14 +50,16 @@ function Signup() {
         
         axios(options)
             .then((res: AxiosResponse<SignupRes>) => {
-                sessionStorage.setItem('authentication', res.data.authentication)
-                navigate("/workplaces");
+                sessionStorage.setItem('authentication', res.data.authentication);
+                navigate("/workspaces");
             })
             .catch((e: AxiosError<{ error: string }>) => {
                 console.log(e.message);
                 alert("通信エラー");
                 return;
             });
+
+        e.preventDefault();
     }
 
     return (
