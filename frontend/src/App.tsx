@@ -1,8 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Signup from "./components/Signup/Signup";
-import Login from "./components/Login/Login";
-import Workspaces from "./components/Workspaces/Workspaces"
+import Home from "./Home/Home";
+import Signup from "./Signup/Signup";
+import Login from "./Login/Login";
+import Workspaces from "./Workspaces/Workspaces"
+import Main from "./Main/Main"
 import './App.css';
 
 function App() {
@@ -10,11 +12,11 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          {/* <Route path='/' element={<Home />}/> */}
+          <Route path='/' element={<Home />}/>
           <Route path="/signup" element={<Signup />}/>
           <Route path="/login" element={<Login />}/>
           <Route path="/workspaces" element={<Workspaces />}/>
-          {/* <Route path="/main" element={<Main />}/> */}
+          <Route path="/main" element={<Main />}/>
         </Routes>
       </BrowserRouter>
     </div>

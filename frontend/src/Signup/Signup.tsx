@@ -1,22 +1,24 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./Login.css";
+import "./Signup.css";
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 
 const BASE_URL = "https://hackathon-backend-n7qi3ktvya-uc.a.run.app";
 
-type LoginRes = {
+type SignupRes = {
     authentication: string
 }
 
-function Login() {
+function Signup() {
 
     const navigate = useNavigate();
+    const [ Name, setName ] = useState("");
     const [ Email, setEmail ] = useState("");
     const [ Password, setPassword ] = useState("");
+    const [ PasswordForConfirmation, setPasswordForConfirmation ] = useState("");
 
     const onSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        if (Email === "" || Password === "") {
+        if (Name === "" || Email === "" || Password === "" || PasswordForConfirmation === "") { 
             alert("未入力の項目があります。");
             return;
         }
@@ -25,24 +27,29 @@ function Login() {
             return;
         }
         if (!Password.match(/^([a-zA-Z0-9]{10,})$/)) {
-            alert("パスワードは半角英数字10文字以上です。");
+            alert("パスワードは半角英数字10文字以上で設定してください。");
+            return;
+        }
+        if ( Password !== PasswordForConfirmation ) {
+            alert("パスワードが一致しません。");
             return;
         }
 
         const options: AxiosRequestConfig = {
-            url: `${BASE_URL}/login`,
+            url: `${BASE_URL}/signup`,
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
             },
             data: {
+                name: Name,
                 email: Email,
                 password: Password,
             }
         };
-
+        
         axios(options)
-            .then((res: AxiosResponse<LoginRes>) => {
+            .then((res: AxiosResponse<SignupRes>) => {
                 sessionStorage.setItem('authentication', res.data.authentication);
                 navigate("/workspaces");
             })
@@ -56,10 +63,20 @@ function Login() {
     }
 
     return (
-        <form>
-            <div className="title">ログイン</div>
+        <form className="signup-form">
+            <div className="signup-title">アカウント登録</div>
+            <div className="input-container ic1">
+                <input
+                    className="signup-input"
+                    type="text"
+                    value={Name}
+                    placeholder="名前"
+                    onChange={(e) => setName(e.target.value)}
+                ></input>
+            </div>
             <div className="input-container ic2">
                 <input
+                    className="signup-input"
                     type="email"
                     value={Email}
                     placeholder="メールアドレス"
@@ -68,19 +85,30 @@ function Login() {
             </div>
             <div className="input-container ic2">
                 <input
+                    className="signup-input"
                     type="password"
                     value={Password}
-                    placeholder="パスワード"
+                    placeholder="パスワード(半角英数字10文字以上)"
                     onChange={(e) => setPassword(e.target.value)}
                 ></input>
             </div>
+            <div className="input-container ic2">
+                <input
+                    className="signup-input"
+                    type="password"
+                    value={PasswordForConfirmation}
+                    placeholder="パスワード(確認用)"
+                    onChange={(e) => setPasswordForConfirmation(e.target.value)}
+                ></input>
+            </div>
             <button 
+                className="signup-button"
                 type="submit"
                 onClick={onSubmit}
-            >ログイン</button>
-            <Link to="/signup"><div className="signup" >アカウント登録はこちらから</div></Link>
+            >登録</button>
+            <Link to="/login"><div className="login-link" >ログインはこちらから</div></Link>
         </form>
     )
 }
 
-export default Login;
+export default Signup;

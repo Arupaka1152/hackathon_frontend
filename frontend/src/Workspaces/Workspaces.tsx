@@ -66,11 +66,18 @@ function Workspaces() {
             <ul>
                 {workspaces.map((workspace) => {
                     return <li key={workspace.id}>
-                        <span>{workspace.name}, {workspace.avatar_url}</span>
-                        <button onClick={() => onClickEnterButton(workspace.id)}>Enter</button>
+                        <span className="workspaces_info">{workspace.name}, {workspace.avatar_url}</span>
+                        <button 
+                            className="workspaces-button"
+                            onClick={() => onClickEnterButton(workspace.id)}
+                        >Enter
+                        </button>
                     </li>;
                 })}
             </ul>
+            <div>
+                ワークスペース作成はこちらから
+            </div>
         </div>
     );
 }

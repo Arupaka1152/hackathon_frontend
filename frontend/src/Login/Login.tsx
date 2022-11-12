@@ -1,24 +1,22 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./Signup.css";
+import "./Login.css";
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 
 const BASE_URL = "https://hackathon-backend-n7qi3ktvya-uc.a.run.app";
 
-type SignupRes = {
+type LoginRes = {
     authentication: string
 }
 
-function Signup() {
+function Login() {
 
     const navigate = useNavigate();
-    const [ Name, setName ] = useState("");
     const [ Email, setEmail ] = useState("");
     const [ Password, setPassword ] = useState("");
-    const [ PasswordForConfirmation, setPasswordForConfirmation ] = useState("");
 
     const onSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        if (Name === "" || Email === "" || Password === "" || PasswordForConfirmation === "") { 
+        if (Email === "" || Password === "") {
             alert("未入力の項目があります。");
             return;
         }
@@ -27,29 +25,24 @@ function Signup() {
             return;
         }
         if (!Password.match(/^([a-zA-Z0-9]{10,})$/)) {
-            alert("パスワードは半角英数字10文字以上で設定してください。");
-            return;
-        }
-        if ( Password !== PasswordForConfirmation ) {
-            alert("パスワードが一致しません。");
+            alert("パスワードは半角英数字10文字以上です。");
             return;
         }
 
         const options: AxiosRequestConfig = {
-            url: `${BASE_URL}/signup`,
+            url: `${BASE_URL}/login`,
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
             },
             data: {
-                name: Name,
                 email: Email,
                 password: Password,
             }
         };
-        
+
         axios(options)
-            .then((res: AxiosResponse<SignupRes>) => {
+            .then((res: AxiosResponse<LoginRes>) => {
                 sessionStorage.setItem('authentication', res.data.authentication);
                 navigate("/workspaces");
             })
@@ -63,18 +56,11 @@ function Signup() {
     }
 
     return (
-        <form>
-            <div className="title">アカウント登録</div>
-            <div className="input-container ic1">
-                <input
-                    type="text"
-                    value={Name}
-                    placeholder="名前"
-                    onChange={(e) => setName(e.target.value)}
-                ></input>
-            </div>
+        <form className="login-form">
+            <div className="login-title">ログイン</div>
             <div className="input-container ic2">
                 <input
+                    className="login-input"
                     type="email"
                     value={Email}
                     placeholder="メールアドレス"
@@ -83,27 +69,21 @@ function Signup() {
             </div>
             <div className="input-container ic2">
                 <input
+                    className="login-input"
                     type="password"
                     value={Password}
-                    placeholder="パスワード(半角英数字10文字以上)"
+                    placeholder="パスワード"
                     onChange={(e) => setPassword(e.target.value)}
                 ></input>
             </div>
-            <div className="input-container ic2">
-                <input
-                    type="password"
-                    value={PasswordForConfirmation}
-                    placeholder="パスワード(確認用)"
-                    onChange={(e) => setPasswordForConfirmation(e.target.value)}
-                ></input>
-            </div>
             <button 
+                className="login-button"
                 type="submit"
                 onClick={onSubmit}
-            >登録</button>
-            <Link to="/login"><div className="login" >ログインはこちらから</div></Link>
+            >ログイン</button>
+            <Link to="/signup"><div className="signup-link" >アカウント登録はこちらから</div></Link>
         </form>
     )
 }
 
-export default Signup;
+export default Login;

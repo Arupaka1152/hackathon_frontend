@@ -1,0 +1,26 @@
+.home-div {
+    background-color: #15172b;
+    border-radius: 20px;
+    box-sizing: border-box;
+    height: 400px;
+    padding: 20px;
+    width: 340px;
+}
+
+.signup-link {
+    color: #eee;
+    font-family: sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.login-link {
+    color: #eee;
+    font-family: sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 20px;
+    text-align: center;
+}
