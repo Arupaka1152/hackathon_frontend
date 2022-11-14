@@ -125,16 +125,15 @@ function Main() {
                 role={role}
                 workspaceName={workspaceName}
             />
-            {/* <Sidebar
-                role={role}    
-            />
+            {/*
             <Timeline
                 contributions={contributions}
                 setContributions={setContributions}
             />
             <PostContribution
 
-            /> */}
+            /> 
+            */}
         </div>
     )
 }
