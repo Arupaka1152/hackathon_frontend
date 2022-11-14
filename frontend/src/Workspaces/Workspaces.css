@@ -1,0 +1,70 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.workspaces {
+    margin-top: 0px;
+    align-items: center;
+    background-color: #000;
+    justify-content: center;
+    height: 100vh;
+}
+
+.workspaces-title {
+    color: white;
+    font-family: sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+    padding-bottom: 25px;
+    padding-top: 50px;
+    text-align: center;
+}
+
+.WorkspaceList {
+    color: white;
+    font-family: sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.Workspaces_info {
+    background-color: #303245;
+}
+
+.Workspaces_name {
+    color: white;
+    font-family: sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.Workspaces-button {
+    background-color: #08d;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    height: 50px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    text-align: center;
+    width: 30%;
+}
+
+.createWorkspace-link {
+    color: white;
+    font-family: sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 20px;
+    text-align: center;
+}

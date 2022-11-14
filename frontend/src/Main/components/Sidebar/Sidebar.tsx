@@ -1,0 +1,66 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import "./Sidebar.css";
+
+type sidebarProps = {
+    role: string;
+    workspaceName: string;
+}
+
+function Sidebar(props: sidebarProps) {
+
+    const navigate = useNavigate();
+
+    return( 
+    <div className="Sidebar">
+        <div className="SidebarTop">
+            <p className="WorkspaceName">{props.workspaceName}</p>
+        </div>
+        <ul className="SidebarList">
+                <li 
+                    className="row"
+                    onClick={() => {navigate("/main");}}
+                >
+                    <div id="title">ホーム</div>
+                </li>
+
+                <li 
+                    className="row"
+                    onClick={() => {navigate("/main/report");}}
+                >
+                    <div id="title">週間レポート</div>
+                </li>
+
+                <li 
+                    className="row"
+                    onClick={() => {navigate("/main/members");}}
+                >
+                    <div id="title">メンバー一覧</div>
+                </li>
+
+                <li 
+                    className="row"
+                    onClick={() => {navigate("/main/user-settings");}}
+                >
+                    <div id="title">ユーザー設定</div>
+                </li>
+
+                <li 
+                    className="row"
+                    onClick={() => {navigate("/main/workspace-settings");}}
+                >
+                    <div id="title">ワークスペース設定</div>
+                </li>
+
+                <li 
+                    className="row"
+                    onClick={() => {navigate("/workspaces");}}
+                >
+                    <div id="title">他のワークスペースへ移動</div>
+                </li>
+        </ul>
+    </div>
+    );
+}
+
+export default Sidebar; 
