@@ -48,7 +48,7 @@ function Login() {
             })
             .catch((e: AxiosError<{ error: string }>) => {
                 console.log(e.message);
-                alert("通信エラー");
+                alert("ログインできませんでした。");
                 return;
             });
 
@@ -56,33 +56,35 @@ function Login() {
     }
 
     return (
-        <form className="login-form">
-            <div className="login-title">ログイン</div>
-            <div className="input-container ic2">
-                <input
-                    className="login-input"
-                    type="email"
-                    value={Email}
-                    placeholder="メールアドレス"
-                    onChange={(e) => setEmail(e.target.value)}
-                ></input>
-            </div>
-            <div className="input-container ic2">
-                <input
-                    className="login-input"
-                    type="password"
-                    value={Password}
-                    placeholder="パスワード"
-                    onChange={(e) => setPassword(e.target.value)}
-                ></input>
-            </div>
-            <button 
-                className="login-button"
-                type="submit"
-                onClick={onSubmit}
-            >ログイン</button>
-            <Link to="/signup"><div className="signup-link" >アカウント登録はこちらから</div></Link>
-        </form>
+        <div className="login-body">
+            <form className="login-form">
+                <div className="login-title">ログイン</div>
+                <div className="input-container ic2">
+                    <input
+                        className="login-input"
+                        type="email"
+                        value={Email}
+                        placeholder="メールアドレス"
+                        onChange={(e) => setEmail(e.target.value)}
+                    ></input>
+                </div>
+                <div className="input-container ic2">
+                    <input
+                        className="login-input"
+                        type="password"
+                        value={Password}
+                        placeholder="パスワード"
+                        onChange={(e) => setPassword(e.target.value)}
+                    ></input>
+                </div>
+                <button 
+                    className="login-button"
+                    type="submit"
+                    onClick={onSubmit}
+                >ログイン</button>
+                <Link to="/signup"><div className="signup-link" >アカウント登録はこちらから</div></Link>
+            </form>
+        </div>
     )
 }
 

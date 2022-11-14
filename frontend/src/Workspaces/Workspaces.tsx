@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Workspaces.css";
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 
 const BASE_URL = "https://hackathon-backend-n7qi3ktvya-uc.a.run.app";
 
-type Workspace = {
+export type Workspace = {
     id: string
     name: string
     avatar_url: string
-}
+};
 
 function Workspaces() {
 
@@ -21,7 +21,7 @@ function Workspaces() {
         if (!didEffect.current){
             didEffect.current = true;
 
-            const accessToken = sessionStorage.getItem("authentication")
+            const accessToken = sessionStorage.getItem("authentication");
             if (accessToken === null) {
                 console.log("accessToken not found");
                 navigate("/login"); //404ページみたいなのにとばす
@@ -63,20 +63,21 @@ function Workspaces() {
 
     return(
         <div>
-            <ul>
-                {workspaces.map((workspace) => {
-                    return <li key={workspace.id}>
-                        <span className="workspaces_info">{workspace.name}, {workspace.avatar_url}</span>
-                        <button 
-                            className="workspaces-button"
-                            onClick={() => onClickEnterButton(workspace.id)}
-                        >Enter
-                        </button>
-                    </li>;
-                })}
-            </ul>
-            <div>
-                ワークスペース作成はこちらから
+            <div className="workspaces">
+                <div className="workspaces-title">ワークスペースにログイン</div>
+                <ul className="WorkspaceList">
+                    {workspaces.map((workspace) => {
+                        return <li className="Workspace_info" key={workspace.id}>
+                            <div className="Workspace_name">{workspace.name}</div>
+                            <button 
+                                className="Workspaces-button"
+                                onClick={() => onClickEnterButton(workspace.id)}
+                            >Enter
+                            </button>
+                        </li>;
+                    })}
+                </ul>
+                <Link to="/workspaces/create"><div className="createWorkspace-link" >ワークスペース作成はこちらから</div></Link>
             </div>
         </div>
     );

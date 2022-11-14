@@ -55,7 +55,7 @@ function Signup() {
             })
             .catch((e: AxiosError<{ error: string }>) => {
                 console.log(e.message);
-                alert("通信エラー");
+                alert("登録できませんでした。");
                 return;
             });
 
@@ -63,51 +63,53 @@ function Signup() {
     }
 
     return (
-        <form className="signup-form">
-            <div className="signup-title">アカウント登録</div>
-            <div className="input-container ic1">
-                <input
-                    className="signup-input"
-                    type="text"
-                    value={Name}
-                    placeholder="名前"
-                    onChange={(e) => setName(e.target.value)}
-                ></input>
-            </div>
-            <div className="input-container ic2">
-                <input
-                    className="signup-input"
-                    type="email"
-                    value={Email}
-                    placeholder="メールアドレス"
-                    onChange={(e) => setEmail(e.target.value)}
-                ></input>
-            </div>
-            <div className="input-container ic2">
-                <input
-                    className="signup-input"
-                    type="password"
-                    value={Password}
-                    placeholder="パスワード(半角英数字10文字以上)"
-                    onChange={(e) => setPassword(e.target.value)}
-                ></input>
-            </div>
-            <div className="input-container ic2">
-                <input
-                    className="signup-input"
-                    type="password"
-                    value={PasswordForConfirmation}
-                    placeholder="パスワード(確認用)"
-                    onChange={(e) => setPasswordForConfirmation(e.target.value)}
-                ></input>
-            </div>
-            <button 
-                className="signup-button"
-                type="submit"
-                onClick={onSubmit}
-            >登録</button>
-            <Link to="/login"><div className="login-link" >ログインはこちらから</div></Link>
-        </form>
+        <div className="signup-body">
+            <form className="signup-form">
+                <div className="signup-title">アカウント登録</div>
+                <div className="input-container ic1">
+                    <input
+                        className="signup-input"
+                        type="text"
+                        value={Name}
+                        placeholder="名前"
+                        onChange={(e) => setName(e.target.value)}
+                    ></input>
+                </div>
+                <div className="input-container ic2">
+                    <input
+                        className="signup-input"
+                        type="email"
+                        value={Email}
+                        placeholder="メールアドレス"
+                        onChange={(e) => setEmail(e.target.value)}
+                    ></input>
+                </div>
+                <div className="input-container ic2">
+                    <input
+                        className="signup-input"
+                        type="password"
+                        value={Password}
+                        placeholder="パスワード(半角英数字10文字以上)"
+                        onChange={(e) => setPassword(e.target.value)}
+                    ></input>
+                </div>
+                <div className="input-container ic2">
+                    <input
+                        className="signup-input"
+                        type="password"
+                        value={PasswordForConfirmation}
+                        placeholder="パスワード(確認用)"
+                        onChange={(e) => setPasswordForConfirmation(e.target.value)}
+                    ></input>
+                </div>
+                <button 
+                    className="signup-button"
+                    type="submit"
+                    onClick={onSubmit}
+                >登録</button>
+                <Link to="/login"><div className="login-link" >ログインはこちらから</div></Link>
+            </form>
+        </div>
     )
 }
 

@@ -1,4 +1,4 @@
-.signup-body {
+.createWorkspaces-body {
     align-items: center;
     background-color: #000;
     display: flex;
@@ -6,16 +6,16 @@
     height: 100vh;
 }
   
-.signup-form {
+.createWorkspaces-form {
     background-color: #15172b;
     border-radius: 20px;
     box-sizing: border-box;
-    height: 550px;
+    height: 450px;
     padding: 20px;
     width: 340px;
 }
   
-.signup-title {
+.createWorkspaces-title {
     color: #eee;
     font-family: sans-serif;
     font-size: 36px;
@@ -24,7 +24,7 @@
     text-align: center;
 }
 
-.login-link {
+.Workspaces-link {
     color: #eee;
     font-family: sans-serif;
     font-size: 16px;
@@ -47,7 +47,7 @@
     margin-top: 25px;
 }
   
-.signup-input {
+.createWorkspaces-input {
     background-color: #303245;
     border-radius: 12px;
     border: 0;
@@ -60,7 +60,7 @@
     width: 100%;
 }
   
-.signup-button {
+.createWorkspaces-button {
     background-color: #08d;
     border-radius: 12px;
     border: 0;
@@ -75,6 +75,6 @@
     width: 100%;
 }
   
-.signup-button:active {
+.createWorkspaces-button:active {
     background-color: #06b;
 }
