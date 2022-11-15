@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Sidebar.css";
 
-type sidebarProps = {
+export type sidebarProps = {
     role: string;
     workspaceName: string;
 }
@@ -19,35 +19,35 @@ function Sidebar(props: sidebarProps) {
         <ul className="SidebarList">
                 <li 
                     className="row"
-                    onClick={() => {navigate("/main");}}
+                    onClick={() => {navigate("/main", {state: {role: props.role, workspaceName: props.workspaceName}});}}
                 >
                     <div id="title">ホーム</div>
                 </li>
 
                 <li 
                     className="row"
-                    onClick={() => {navigate("/main/report");}}
+                    onClick={() => {navigate("/main/report", {state: {role: props.role, workspaceName: props.workspaceName}});}}
                 >
                     <div id="title">週間レポート</div>
                 </li>
 
                 <li 
                     className="row"
-                    onClick={() => {navigate("/main/members");}}
+                    onClick={() => {navigate("/main/members", {state: {role: props.role, workspaceName: props.workspaceName}});}}
                 >
                     <div id="title">メンバー一覧</div>
                 </li>
 
                 <li 
                     className="row"
-                    onClick={() => {navigate("/main/user-settings");}}
+                    onClick={() => {navigate("/main/user-settings", {state: {role: props.role, workspaceName: props.workspaceName}});}}
                 >
                     <div id="title">ユーザー設定</div>
                 </li>
 
                 <li 
                     className="row"
-                    onClick={() => {navigate("/main/workspace-settings");}}
+                    onClick={() => {navigate("/main/workspace-settings", {state: {role: props.role, workspaceName: props.workspaceName}});}}
                 >
                     <div id="title">ワークスペース設定</div>
                 </li>
