@@ -6,19 +6,9 @@ import { useNavigate } from "react-router-dom";
 import "./Main.css";
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 import { Contribution } from "./types/Contribution";
+import { UserInfo } from "./types/User";
 
 const BASE_URL = "https://hackathon-backend-n7qi3ktvya-uc.a.run.app";
-
-type UserInfo = {
-    user_id: string
-    name: string
-    account_id: string
-    workspace_id: string
-    role: string
-    avatar_url: string
-    workspace_name: string
-    workspace_avatar_url: string
-}
 
 function Main() {
 
