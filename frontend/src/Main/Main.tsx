@@ -5,6 +5,7 @@ import PostContribution from "./components/PostContribution"; */
 import { useNavigate } from "react-router-dom";
 import "./Main.css";
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
+import { Contribution } from "./types/Contribution";
 
 const BASE_URL = "https://hackathon-backend-n7qi3ktvya-uc.a.run.app";
 
@@ -17,18 +18,6 @@ type UserInfo = {
     avatar_url: string
     workspace_name: string
     workspace_avatar_url: string
-}
-
-type Contribution = {
-    contribution_id: string
-    workspace_id: string
-    sender_id: string
-    receiver_id: string
-    points: number
-    message: string
-    reaction: number
-    created_at: string
-    update_at: string
 }
 
 function Main() {
@@ -65,7 +54,7 @@ function Main() {
             })
             .catch((e: AxiosError<{ error: string }>) => {
                 console.log(e.message);
-                navigate("/login");
+                navigate("/main");
                 return;
             });
     }

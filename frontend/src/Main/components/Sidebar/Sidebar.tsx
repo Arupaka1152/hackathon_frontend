@@ -58,6 +58,17 @@ function Sidebar(props: sidebarProps) {
                 >
                     <div id="title">他のワークスペースへ移動</div>
                 </li>
+
+                <li 
+                    className="row"
+                    onClick={() => {
+                        sessionStorage.removeItem('authentication');
+                        sessionStorage.removeItem('workspace_id');
+                        navigate("/login");
+                    }}
+                >
+                    <div id="title">ログアウト</div>
+                </li>
         </ul>
     </div>
     );
