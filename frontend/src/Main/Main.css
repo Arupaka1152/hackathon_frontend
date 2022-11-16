@@ -4,3 +4,12 @@
     margin: 0 auto;
     padding: 0px;
 }
+
+.main-container {
+    display: inline-block;
+    height: 80%;
+    width: 83%;
+    margin-left: 17%;
+    margin-top: 8%;
+    text-align: center;
+}

@@ -4,6 +4,7 @@ export type User = {
     account_id: string
     workspace_id: string
     role: string
+    description: string
     avatar_url: string
 };
 
@@ -13,7 +14,9 @@ export type UserInfo = {
     account_id: string
     workspace_id: string
     role: string
+    description: string
     avatar_url: string
     workspace_name: string
+    workspace_description: string
     workspace_avatar_url: string
 }

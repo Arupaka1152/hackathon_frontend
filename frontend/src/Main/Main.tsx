@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Sidebar from "./components/Sidebar/Sidebar";
+import Header from "./components/Header/Header";
 /* import Timeline from "./components/Timeline";
 import PostContribution from "./components/PostContribution"; */
 import { useNavigate } from "react-router-dom";
@@ -104,15 +105,12 @@ function Main() {
                 role={role}
                 workspaceName={workspaceName}
             />
-            {/*
-            <Timeline
-                contributions={contributions}
-                setContributions={setContributions}
+            <Header 
+                title={"ホーム"}
             />
-            <PostContribution
+            <div className="main-container">
 
-            /> 
-            */}
+            </div>
         </div>
     )
 }

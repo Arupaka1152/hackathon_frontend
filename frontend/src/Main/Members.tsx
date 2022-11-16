@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Sidebar from "./components/Sidebar/Sidebar";
+import Header from "./components/Header/Header";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./Members.css";
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
@@ -44,6 +45,7 @@ function Members() {
                         account_id: res.data[i].account_id,
                         workspace_id: res.data[i].workspace_id,
                         role: res.data[i].role,
+                        description: res.data[i].description,
                         avatar_url: res.data[i].avatar_url,
                     }])
                 }
@@ -69,6 +71,12 @@ function Members() {
                 role={workspaceState.role}
                 workspaceName={workspaceState.workspaceName}
             />
+            <Header 
+                title={"メンバー一覧"}
+            />
+            <div className="members-container">
+
+            </div>
         </div>
     )
 }
