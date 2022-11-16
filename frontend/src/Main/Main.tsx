@@ -1,35 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import Sidebar from "./components/Sidebar/Sidebar";
+import Header from "./components/Header/Header";
 /* import Timeline from "./components/Timeline";
 import PostContribution from "./components/PostContribution"; */
 import { useNavigate } from "react-router-dom";
 import "./Main.css";
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
+import { Contribution } from "./types/Contribution";
+import { UserInfo } from "./types/User";
 
 const BASE_URL = "https://hackathon-backend-n7qi3ktvya-uc.a.run.app";
-
-type UserInfo = {
-    user_id: string
-    name: string
-    account_id: string
-    workspace_id: string
-    role: string
-    avatar_url: string
-    workspace_name: string
-    workspace_avatar_url: string
-}
-
-type Contribution = {
-    contribution_id: string
-    workspace_id: string
-    sender_id: string
-    receiver_id: string
-    points: number
-    message: string
-    reaction: number
-    created_at: string
-    update_at: string
-}
 
 function Main() {
 
@@ -65,7 +45,7 @@ function Main() {
             })
             .catch((e: AxiosError<{ error: string }>) => {
                 console.log(e.message);
-                navigate("/login");
+                navigate("/main");
                 return;
             });
     }
@@ -125,16 +105,12 @@ function Main() {
                 role={role}
                 workspaceName={workspaceName}
             />
-            {/* <Sidebar
-                role={role}    
+            <Header 
+                title={"ホーム"}
             />
-            <Timeline
-                contributions={contributions}
-                setContributions={setContributions}
-            />
-            <PostContribution
+            <div className="main-container">
 
-            /> */}
+            </div>
         </div>
     )
 }

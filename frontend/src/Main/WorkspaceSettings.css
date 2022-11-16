@@ -3,9 +3,10 @@
     width: 100%;
     margin: 0 auto;
     padding: 0px;
+    text-align: left;
 }
 
-.main-container {
+.workspace-settings-container {
     display: inline-block;
     height: 80%;
     width: 83%;

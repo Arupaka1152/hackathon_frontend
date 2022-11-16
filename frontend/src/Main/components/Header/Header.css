@@ -1,0 +1,16 @@
+.Header-container {
+    display: inline-block;
+    margin-left: 17%;
+    height: 8%;
+    width: 83%;
+    background-color: #303245;
+    position: fixed;
+}
+
+.Header-title {
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+    margin-top: 19px;
+    margin-left: 20px;
+}

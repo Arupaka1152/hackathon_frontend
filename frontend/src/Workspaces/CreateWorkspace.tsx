@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./CreateWorkspace.css";
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";

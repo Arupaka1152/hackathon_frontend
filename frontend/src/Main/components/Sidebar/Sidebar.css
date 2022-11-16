@@ -5,9 +5,13 @@
 }
 
 .Sidebar {
+    display: inline-block;
     height: 100%;
-    width: 250px;
+    width: 17%;
+    margin-left: 0px;
+    margin-top: 0px;
     background-color: #303245;
+    position: fixed;
 }
 
 .SidebarList {
@@ -28,6 +32,7 @@
     color: white;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
 .SidebarList .row:hover {
@@ -46,6 +51,7 @@
 }
 
 .WorkspaceName {
+    text-align: center;
     color: white;
     font-weight: 600;
     font-size: 22px;

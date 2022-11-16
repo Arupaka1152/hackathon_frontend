@@ -8,6 +8,7 @@ const BASE_URL = "https://hackathon-backend-n7qi3ktvya-uc.a.run.app";
 export type Workspace = {
     id: string
     name: string
+    description: string
     avatar_url: string
 };
 
@@ -43,7 +44,8 @@ function Workspaces() {
                             setWorkspaces((workspaces) => [...workspaces, { 
                                 id: res.data[i].id, 
                                 name: res.data[i].name, 
-                                avatar_url: res.data[i].avatar_url 
+                                description: res.data[i].description,
+                                avatar_url: res.data[i].avatar_url, 
                             }])
                         }
                     }
