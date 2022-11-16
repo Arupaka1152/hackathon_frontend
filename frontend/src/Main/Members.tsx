@@ -75,7 +75,13 @@ function Members() {
                 title={"メンバー一覧"}
             />
             <div className="members-container">
-
+                <ul className="memberList">
+                    {users.map((user) => {
+                        return <li className="member_info" key={user.user_id}>
+                            <div className="member">{user.user_id},{user.name},{user.description}</div>
+                        </li>;
+                    })}
+                </ul>
             </div>
         </div>
     )

@@ -34,7 +34,7 @@ function Report() {
                 title={"週間レポート"}
             />
             <div className="report-container">
-
+                
             </div>
         </div>
     )
