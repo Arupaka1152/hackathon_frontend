@@ -1,5 +1,5 @@
-import Report from "../../Report";
-import "./Header.css"
+import React from "react";
+import "./Header.css";
 
 type headerProps = {
     title: string

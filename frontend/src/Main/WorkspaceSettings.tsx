@@ -20,11 +20,12 @@ function WorkspaceSettings() {
     const [ users, setUsers ] = useState<User[]>([]);
     const [ workspaceDescription, setWorkspaceDescription ] = useState("");
     const [ workspaceName, setWorkspaceName ] = useState("");
-
-    const accessToken = sessionStorage.getItem("authentication");
-    const workspaceId = sessionStorage.getItem("workspace_id");
+    const [ userId, setUserId ] = useState("");
 
     const fetchAllUsersInWorkspace = () => {
+        const accessToken = sessionStorage.getItem("authentication");
+        const workspaceId = sessionStorage.getItem("workspace_id");
+
         if (accessToken === null || workspaceId === null) {
             console.log("authentication failed");
             navigate("/login");
@@ -62,6 +63,9 @@ function WorkspaceSettings() {
     };
 
     const fetchUserInfo = () => {
+        const accessToken = sessionStorage.getItem("authentication");
+        const workspaceId = sessionStorage.getItem("workspace_id");
+
         if (accessToken === null || workspaceId === null) {
             console.log("authentication failed");
             navigate("/login");
@@ -87,9 +91,12 @@ function WorkspaceSettings() {
                 navigate("/main");
                 return;
             });
-    }
+    };
 
-    const onSubmitWorkspaceSettings = () => {
+    const updateWorkspaceSettings = (workspaceName: string, workspaceDescription: string) => {
+        const accessToken = sessionStorage.getItem("authentication");
+        const workspaceId = sessionStorage.getItem("workspace_id");
+
         if (accessToken === null || workspaceId === null) {
             console.log("authentication failed");
             navigate("/login");
@@ -97,7 +104,7 @@ function WorkspaceSettings() {
         };
 
         const options: AxiosRequestConfig = {
-            url: `${BASE_URL}/api/me`,
+            url: `${BASE_URL}/api/workspace`,
             method: "PUT",
             headers: {
                 'authentication': accessToken,
@@ -113,13 +120,122 @@ function WorkspaceSettings() {
             .then((res: AxiosResponse<Workspace>) => {
                 setWorkspaceName(res.data.name);
                 setWorkspaceDescription(res.data.description);
+                alert("ワークスペース情報を変更しました。");
             })
             .catch((e: AxiosError<{ error: string }>) => {
                 console.log(e.message);
-                navigate("/main");
+                alert("ワークスペース情報を変更できませんでした。");
                 return;
             });
-    }
+    };
+
+    const deleteWorkspace = () => {
+        const accessToken = sessionStorage.getItem("authentication");
+        const workspaceId = sessionStorage.getItem("workspace_id");
+
+        if (accessToken === null || workspaceId === null) {
+            console.log("authentication failed");
+            navigate("/login");
+            return;
+        };
+
+        const options: AxiosRequestConfig = {
+            url: `${BASE_URL}/api/workspace`,
+            method: "DELETE",
+            headers: {
+                'authentication': accessToken,
+                'workspace_id': workspaceId
+            }
+        };
+
+        axios(options)
+            .then(() => {
+                alert("ワークスペースを削除しました。");
+                navigate("/workspaces");
+            })
+            .catch((e: AxiosError<{ error: string }>) => {
+                console.log(e.message);
+                alert("ワークスペースを削除できませんでした。");
+                return;
+            });
+    };
+
+    const deleteUserFromWorkspace = (userId: string) => {
+        const accessToken = sessionStorage.getItem("authentication");
+        const workspaceId = sessionStorage.getItem("workspace_id");
+
+        if (accessToken === null || workspaceId === null) {
+            console.log("authentication failed");
+            navigate("/login");
+            return;
+        };
+
+        const options: AxiosRequestConfig = {
+            url: `${BASE_URL}/api/workspace/remove`,
+            method: "POST",
+            headers: {
+                'authentication': accessToken,
+                'workspace_id': workspaceId
+            },
+            data: {
+                user_id: userId
+            }
+        };
+
+        axios(options)
+            .then(() => {
+                alert("ユーザーを削除しました。");
+            })
+            .catch((e: AxiosError<{ error: string }>) => {
+                console.log(e.message);
+                alert("ユーザーを削除できませんでした。");
+                return;
+            });
+    };
+
+    const updateRole = (userId: string, role: string) => {
+        const accessToken = sessionStorage.getItem("authentication");
+        const workspaceId = sessionStorage.getItem("workspace_id");
+
+        if (accessToken === null || workspaceId === null) {
+            console.log("authentication failed");
+            navigate("/login");
+            return;
+        };
+
+        const options: AxiosRequestConfig = {
+            url: `${BASE_URL}/api/workspace/role`,
+            method: "POST",
+            headers: {
+                'authentication': accessToken,
+                'workspace_id': workspaceId
+            },
+            data: {
+                user_id: userId,
+                role: role
+            }
+        };
+
+        axios(options)
+            .then(() => {
+                alert("ユーザーの権限を変更しました。");
+            })
+            .catch((e: AxiosError<{ error: string }>) => {
+                console.log(e.message);
+                alert("ユーザーの権限を変更できませんでした。");
+                return;
+            });
+    };
+
+    const onSubmitWorkspaceSettings = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        updateWorkspaceSettings(workspaceName, workspaceDescription);
+        e.preventDefault();
+    };
+
+    const onSubmitDeleteWorkspace = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        deleteWorkspace();
+        e.preventDefault();
+    };
 
     useEffect(() => {
         if (!didEffect.current){
@@ -132,28 +248,25 @@ function WorkspaceSettings() {
 
     return(
         <div className="main">
-            <Sidebar 
-                role={workspaceState.role}
-                workspaceName={workspaceState.workspaceName}
-            />
+            <Sidebar/>
             <Header 
                 title={"ワークスペース設定"}
             />
             <div className="workspace-settings-container">
-                <form className="user-settings-form">
-                    <div className="user-settings-title">ワークスペース情報を変更</div>
+                <form className="workspace-settings-form">
+                    <div className="workspace-settings-title">ワークスペース情報を変更</div>
                     <div className="input-container ic1">
                         <input
-                            className="user-settings-input"
+                            className="workspace-settings-input"
                             type="text"
-                            value={workspaceState.workspaceName}
-                            placeholder={workspaceState.workspaceName}
+                            value={workspaceName}
+                            placeholder={workspaceName}
                             onChange={(e) => setWorkspaceName(e.target.value)}
                         ></input>
                     </div>
                     <div className="input-container ic2">
                         <input
-                            className="user-settings-input"
+                            className="workspace-settings-input"
                             type="text"
                             value={workspaceDescription}
                             placeholder={workspaceDescription}
@@ -161,7 +274,7 @@ function WorkspaceSettings() {
                         ></input>
                     </div>
                     <button 
-                        className="user-settings-button"
+                        className="workspace-settings-button"
                         type="submit"
                         onClick={onSubmitWorkspaceSettings}
                     >変更</button>
@@ -174,6 +287,12 @@ function WorkspaceSettings() {
                         </li>;
                     })}
                 </ul>
+                <div className="workspace-delete-title">ワークスペースを削除</div>
+                <button 
+                    className="workspace-delete-button"
+                    type="submit"
+                    onClick={onSubmitDeleteWorkspace}
+                >削除</button>
             </div>
         </div>
     )
