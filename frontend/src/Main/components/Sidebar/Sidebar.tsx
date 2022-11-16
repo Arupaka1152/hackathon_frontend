@@ -18,10 +18,10 @@ function Sidebar() {
     const [ workspaceName, setWorkspaceName ] = useState("");
     const didEffect = useRef(false);
 
-    const accessToken = sessionStorage.getItem("authentication");
-    const workspaceId = sessionStorage.getItem("workspace_id");
-
     const fetchUserInfo = () => {
+        const accessToken = sessionStorage.getItem("authentication");
+        const workspaceId = sessionStorage.getItem("workspace_id");
+
         if (accessToken === null || workspaceId === null) {
             console.log("authentication failed");
             navigate("/login");

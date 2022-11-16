@@ -14,12 +14,13 @@ const BASE_URL = "https://hackathon-backend-n7qi3ktvya-uc.a.run.app";
 function WorkspaceSettings() {
 
     const navigate = useNavigate();
-    const location = useLocation();
-    const workspaceState = location.state as sidebarProps;
     const didEffect = useRef(false);
     const [ users, setUsers ] = useState<User[]>([]);
     const [ workspaceDescription, setWorkspaceDescription ] = useState("");
     const [ workspaceName, setWorkspaceName ] = useState("");
+    const [ email, setEmail ] = useState("");
+    const [ name, setName ] = useState("");
+    const [ role, setRole ] = useState("");
     const [ userId, setUserId ] = useState("");
 
     const fetchAllUsersInWorkspace = () => {
@@ -227,6 +228,41 @@ function WorkspaceSettings() {
             });
     };
 
+    const createUser = (email: string, name: string, role: string) => {
+        const accessToken = sessionStorage.getItem("authentication");
+        const workspaceId = sessionStorage.getItem("workspace_id");
+
+        if (accessToken === null || workspaceId === null) {
+            console.log("authentication failed");
+            navigate("/login");
+            return;
+        };
+
+        const options: AxiosRequestConfig = {
+            url: `${BASE_URL}/api/workspace/invite`,
+            method: "POST",
+            headers: {
+                'authentication': accessToken,
+                'workspace_id': workspaceId
+            },
+            data: {
+                email: email,
+                name: name,
+                role: role
+            }
+        };
+
+        axios(options)
+            .then(() => {
+                alert("ユーザーを招待しました。");
+            })
+            .catch((e: AxiosError<{ error: string }>) => {
+                console.log(e.message);
+                alert("ユーザーを招待できませんでした。");
+                return;
+            });
+    }
+
     const onSubmitWorkspaceSettings = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         updateWorkspaceSettings(workspaceName, workspaceDescription);
         e.preventDefault();
@@ -234,6 +270,11 @@ function WorkspaceSettings() {
 
     const onSubmitDeleteWorkspace = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         deleteWorkspace();
+        e.preventDefault();
+    };
+
+    const onSubmitInviteUser = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        createUser(email, name, role);
         e.preventDefault();
     };
 
@@ -279,11 +320,47 @@ function WorkspaceSettings() {
                         onClick={onSubmitWorkspaceSettings}
                     >変更</button>
                 </form>
+                <form className="workspace-settings-form">
+                    <div className="workspace-settings-title">ワークスペースにメンバーを招待</div>
+                    <div className="input-container ic1">
+                        <input
+                            className="workspace-settings-input"
+                            type="email"
+                            value={email}
+                            placeholder="メールアドレス"
+                            onChange={(e) => setEmail(e.target.value)}
+                        ></input>
+                    </div>
+                    <div className="input-container ic2">
+                        <input
+                            className="workspace-settings-input"
+                            type="text"
+                            value={name}
+                            placeholder="ユーザー名"
+                            onChange={(e) => setName(e.target.value)}
+                        ></input>
+                    </div>
+                    <div className="input-container ic2">
+                        <input
+                            className="workspace-settings-input"
+                            type="text"
+                            value={role}
+                            placeholder="役職"
+                            onChange={(e) => setRole(e.target.value)} //役職は選べるようにする
+                        ></input>
+                    </div>
+                </form>
+                <button 
+                    className="workspace-invite-button"
+                    type="submit"
+                    onClick={onSubmitInviteUser}
+                >招待</button>
                 <ul className="memberList">
                     {users.map((user) => {
                         return <li className="member_info" key={user.user_id}>
                             <div className="member">{user.user_id},{user.name},{user.description},{user.role}</div>
-                            {/* 権限の変更、ユーザーの削除ボタンを追加する */}
+                            <button className="workspace-settings-button">変更</button>
+                            <button className="workspace-settings-button">削除</button>
                         </li>;
                     })}
                 </ul>

@@ -14,10 +14,10 @@ function Members() {
     const didEffect = useRef(false);
     const [ users, setUsers ] = useState<User[]>([]);
 
-    const accessToken = sessionStorage.getItem("authentication");
-    const workspaceId = sessionStorage.getItem("workspace_id");
-
     const fetchAllUsersInWorkspace = () => {
+        const accessToken = sessionStorage.getItem("authentication");
+        const workspaceId = sessionStorage.getItem("workspace_id");
+        
         if (accessToken === null || workspaceId === null) {
             console.log("authentication failed");
             navigate("/login");

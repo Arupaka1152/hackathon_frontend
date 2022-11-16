@@ -39,7 +39,7 @@ function Workspaces() {
 
             axios(options)
                 .then((res: AxiosResponse<Workspace[]>) => {
-                    if (res.data.length >= 1) { //アカウントを初めて作ったときは所属しているワークスペースはない
+                    if (res.data.length >= 1) {
                         for (let i = 0; i < res.data.length; i++) {
                             setWorkspaces((workspaces) => [...workspaces, { 
                                 id: res.data[i].id, 
@@ -52,7 +52,7 @@ function Workspaces() {
                 })
                 .catch((e: AxiosError<{ error: string }>) => {
                     console.log(e.message);
-                    navigate("/login"); //404ページみたいなのにとばす
+                    //navigate("/login"); //アカウントを初めて作ったときは所属しているワークスペースはないので500エラーが出てもログインへは戻さない
                     return;
                 });
         }
