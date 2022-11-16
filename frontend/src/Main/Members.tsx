@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Header/Header";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Members.css";
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
-import { sidebarProps } from "./components/Sidebar/Sidebar";
 import { User } from "./types/User";
 
 const BASE_URL = "https://hackathon-backend-n7qi3ktvya-uc.a.run.app";
@@ -12,8 +11,6 @@ const BASE_URL = "https://hackathon-backend-n7qi3ktvya-uc.a.run.app";
 function Members() {
 
     const navigate = useNavigate();
-    const location = useLocation();
-    const workspaceState = location.state as sidebarProps;
     const didEffect = useRef(false);
     const [ users, setUsers ] = useState<User[]>([]);
 
@@ -67,15 +64,18 @@ function Members() {
 
     return(
         <div className="main">
-            <Sidebar 
-                role={workspaceState.role}
-                workspaceName={workspaceState.workspaceName}
-            />
+            <Sidebar />
             <Header 
                 title={"メンバー一覧"}
             />
             <div className="members-container">
-
+                <ul className="memberList">
+                    {users.map((user) => {
+                        return <li className="member_info" key={user.user_id}>
+                            <div className="member">{user.user_id},{user.name},{user.description}</div>
+                        </li>;
+                    })}
+                </ul>
             </div>
         </div>
     )

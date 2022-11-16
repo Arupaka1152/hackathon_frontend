@@ -7,48 +7,17 @@ import { useNavigate } from "react-router-dom";
 import "./Main.css";
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 import { Contribution } from "./types/Contribution";
-import { UserInfo } from "./types/User";
 
 const BASE_URL = "https://hackathon-backend-n7qi3ktvya-uc.a.run.app";
 
 function Main() {
 
     const navigate = useNavigate();
-    const [ role, setRole ] = useState("");
     const [ contributions, setContributions ] = useState<Contribution[]>([]);
-    const [ workspaceName, setWorkspaceName ] = useState("");
     const didEffect = useRef(false);
 
     const accessToken = sessionStorage.getItem("authentication");
     const workspaceId = sessionStorage.getItem("workspace_id");
-
-    const fetchUserInfo = () => {
-        if (accessToken === null || workspaceId === null) {
-            console.log("authentication failed");
-            navigate("/login");
-            return;
-        };
-
-        const options: AxiosRequestConfig = {
-            url: `${BASE_URL}/api/me`,
-            method: "GET",
-            headers: {
-                'authentication': accessToken,
-                'workspace_id': workspaceId
-            },
-        };
-
-        axios(options)
-            .then((res: AxiosResponse<UserInfo>) => {
-                setRole(res.data.role);
-                setWorkspaceName(res.data.workspace_name);
-            })
-            .catch((e: AxiosError<{ error: string }>) => {
-                console.log(e.message);
-                navigate("/main");
-                return;
-            });
-    }
 
     const fetchContributions = () => {
         if (accessToken === null || workspaceId === null) {
@@ -94,17 +63,13 @@ function Main() {
         if (!didEffect.current){
             didEffect.current = true;
 
-            fetchUserInfo();
             fetchContributions();
         }
     }, []);
 
     return (
         <div className="main">
-            <Sidebar 
-                role={role}
-                workspaceName={workspaceName}
-            />
+            <Sidebar />
             <Header 
                 title={"ホーム"}
             />

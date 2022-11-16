@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Header/Header";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./UserSettings.css";
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
-import { sidebarProps } from "./components/Sidebar/Sidebar";
 import { UserInfo } from "./types/User";
 
 const BASE_URL = "https://hackathon-backend-n7qi3ktvya-uc.a.run.app";
@@ -17,16 +16,14 @@ type UpdateUserInfoRes = {
 function UserSettings() {
 
     const navigate = useNavigate();
-    const location = useLocation();
-    const workspaceState = location.state as sidebarProps;
     const didEffect = useRef(false);
     const [ name, setName ] = useState("");
     const [ description, setDescription ] = useState("");
 
-    const accessToken = sessionStorage.getItem("authentication");
-    const workspaceId = sessionStorage.getItem("workspace_id");
-
     const fetchUserInfo = () => {
+        const accessToken = sessionStorage.getItem("authentication");
+        const workspaceId = sessionStorage.getItem("workspace_id");
+
         if (accessToken === null || workspaceId === null) {
             console.log("authentication failed");
             navigate("/login");
@@ -55,6 +52,9 @@ function UserSettings() {
     }
 
     const updateUserInfo = (name: string, description: string) => {
+        const accessToken = sessionStorage.getItem("authentication");
+        const workspaceId = sessionStorage.getItem("workspace_id");
+
         if (accessToken === null || workspaceId === null) {
             console.log("authentication failed");
             navigate("/login");
@@ -88,6 +88,9 @@ function UserSettings() {
     }
 
     const leaveWorkspace = () => {
+        const accessToken = sessionStorage.getItem("authentication");
+        const workspaceId = sessionStorage.getItem("workspace_id");
+
         if (accessToken === null || workspaceId === null) {
             console.log("authentication failed");
             navigate("/login");
@@ -135,10 +138,7 @@ function UserSettings() {
 
     return(
         <div className="main">
-            <Sidebar 
-                role={workspaceState.role}
-                workspaceName={workspaceState.workspaceName}
-            />
+            <Sidebar />
             <Header 
                 title={"ユーザー設定"}
             />
