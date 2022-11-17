@@ -23,16 +23,10 @@ function WorkspaceSettings() {
     const [ role, setRole ] = useState("");
     const [ userId, setUserId ] = useState("");
 
+    const accessToken = sessionStorage.getItem("authentication");
+    const workspaceId = sessionStorage.getItem("workspace_id");
+
     const fetchAllUsersInWorkspace = () => {
-        const accessToken = sessionStorage.getItem("authentication");
-        const workspaceId = sessionStorage.getItem("workspace_id");
-
-        if (accessToken === null || workspaceId === null) {
-            console.log("authentication failed");
-            navigate("/login");
-            return;
-        };
-
         const options: AxiosRequestConfig = {
             url: `${BASE_URL}/api/workspace/member`,
             method: "GET",
@@ -64,15 +58,6 @@ function WorkspaceSettings() {
     };
 
     const fetchUserInfo = () => {
-        const accessToken = sessionStorage.getItem("authentication");
-        const workspaceId = sessionStorage.getItem("workspace_id");
-
-        if (accessToken === null || workspaceId === null) {
-            console.log("authentication failed");
-            navigate("/login");
-            return;
-        };
-
         const options: AxiosRequestConfig = {
             url: `${BASE_URL}/api/me`,
             method: "GET",
@@ -95,15 +80,6 @@ function WorkspaceSettings() {
     };
 
     const updateWorkspaceSettings = (workspaceName: string, workspaceDescription: string) => {
-        const accessToken = sessionStorage.getItem("authentication");
-        const workspaceId = sessionStorage.getItem("workspace_id");
-
-        if (accessToken === null || workspaceId === null) {
-            console.log("authentication failed");
-            navigate("/login");
-            return;
-        };
-
         const options: AxiosRequestConfig = {
             url: `${BASE_URL}/api/workspace`,
             method: "PUT",
@@ -131,15 +107,6 @@ function WorkspaceSettings() {
     };
 
     const deleteWorkspace = () => {
-        const accessToken = sessionStorage.getItem("authentication");
-        const workspaceId = sessionStorage.getItem("workspace_id");
-
-        if (accessToken === null || workspaceId === null) {
-            console.log("authentication failed");
-            navigate("/login");
-            return;
-        };
-
         const options: AxiosRequestConfig = {
             url: `${BASE_URL}/api/workspace`,
             method: "DELETE",
@@ -162,15 +129,6 @@ function WorkspaceSettings() {
     };
 
     const deleteUserFromWorkspace = (userId: string) => {
-        const accessToken = sessionStorage.getItem("authentication");
-        const workspaceId = sessionStorage.getItem("workspace_id");
-
-        if (accessToken === null || workspaceId === null) {
-            console.log("authentication failed");
-            navigate("/login");
-            return;
-        };
-
         const options: AxiosRequestConfig = {
             url: `${BASE_URL}/api/workspace/remove`,
             method: "POST",
@@ -195,15 +153,6 @@ function WorkspaceSettings() {
     };
 
     const updateRole = (userId: string, role: string) => {
-        const accessToken = sessionStorage.getItem("authentication");
-        const workspaceId = sessionStorage.getItem("workspace_id");
-
-        if (accessToken === null || workspaceId === null) {
-            console.log("authentication failed");
-            navigate("/login");
-            return;
-        };
-
         const options: AxiosRequestConfig = {
             url: `${BASE_URL}/api/workspace/role`,
             method: "POST",
@@ -229,15 +178,6 @@ function WorkspaceSettings() {
     };
 
     const createUser = (email: string, name: string, role: string) => {
-        const accessToken = sessionStorage.getItem("authentication");
-        const workspaceId = sessionStorage.getItem("workspace_id");
-
-        if (accessToken === null || workspaceId === null) {
-            console.log("authentication failed");
-            navigate("/login");
-            return;
-        };
-
         const options: AxiosRequestConfig = {
             url: `${BASE_URL}/api/workspace/invite`,
             method: "POST",
@@ -281,6 +221,12 @@ function WorkspaceSettings() {
     useEffect(() => {
         if (!didEffect.current){
             didEffect.current = true;
+
+            if (accessToken === null || workspaceId === null) {
+                console.log("authentication failed");
+                navigate("/login");
+                return;
+            };
 
             fetchAllUsersInWorkspace();
             fetchUserInfo();
