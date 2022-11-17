@@ -1,17 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
-import Sidebar from "./components/Sidebar/Sidebar";
-import Header from "./components/Header/Header";
-import Timeline from "./components/Timeline/Timeline";
-import PostContribution from "./components/PostContribution/PostContribution";
 import { useNavigate } from "react-router-dom";
-import "./Main.css";
+import "./ContributionReceived.css";
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 import { Contribution } from "./types/Contribution";
 import { User } from "./types/User";
+import Sidebar from "./components/Sidebar/Sidebar";
+import Header from "./components/Header/Header";
+import Timeline from "./components/Timeline/Timeline";
 
 const BASE_URL = "https://hackathon-backend-n7qi3ktvya-uc.a.run.app";
 
-function Main() {
+function ContributionReceived() {
 
     const navigate = useNavigate();
     const didEffect = useRef(false);
@@ -21,9 +20,9 @@ function Main() {
     const accessToken = sessionStorage.getItem("authentication");
     const workspaceId = sessionStorage.getItem("workspace_id");
 
-    const fetchContributions = () => {
+    const fetchContributionReceived = () => {
         const options: AxiosRequestConfig = {
-            url: `${BASE_URL}/api/contribution`,
+            url: `${BASE_URL}/api/contribution/received`,
             method: "GET",
             headers: {
                 'authentication': accessToken,
@@ -96,18 +95,18 @@ function Main() {
                 return;
             };
 
-            fetchContributions();
+            fetchContributionReceived();
             fetchAllUsersInWorkspace();
         }
     }, []);
 
-    return (
+    return(
         <div className="main">
             <Sidebar />
             <Header 
-                title={"ホーム"}
+                title={"受信履歴"}
             />
-            <div className="main-container">
+            <div className="ContributionReceived-container">
                 <div className="timeline-container">
                     <Timeline 
                         contributions={contributions}
@@ -115,16 +114,9 @@ function Main() {
                         members={members}
                     />
                 </div>
-                <div className="postContribution-container">
-                    <PostContribution 
-                        contributions={contributions}
-                        setContributions={setContributions}
-                        members={members}
-                    />
-                </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default Main;
+export default ContributionReceived;

@@ -72,6 +72,20 @@ function Sidebar() {
 
                 <li 
                     className="row"
+                    onClick={() => {navigate("/main/sent");}}
+                >
+                    <div id="title">送信履歴</div>
+                </li>
+
+                <li 
+                    className="row"
+                    onClick={() => {navigate("/main/received");}}
+                >
+                    <div id="title">受信履歴</div>
+                </li>
+
+                <li 
+                    className="row"
                     onClick={() => {navigate("/main/report");}}
                 >
                     <div id="title">週間レポート</div>

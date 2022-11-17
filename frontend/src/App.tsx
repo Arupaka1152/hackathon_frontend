@@ -6,6 +6,8 @@ import Login from "./Login/Login";
 import Workspaces from "./Workspaces/Workspaces";
 import CreateWorkspace from "./Workspaces/CreateWorkspace";
 import Main from "./Main/Main";
+import ContributionSent from './Main/ContributionSent';
+import ContributionReceived from './Main/ContributionReceived';
 import Report from "./Main/Report";
 import Members from './Main/Members';
 import UserSettings from './Main/UserSettings';
@@ -23,6 +25,8 @@ function App() {
           <Route path="/workspaces" element={<Workspaces />}/>
           <Route path="/workspaces/create" element={<CreateWorkspace />}/>
           <Route path="/main" element={<Main />}/>
+          <Route path="/main/sent" element={<ContributionSent />}/>
+          <Route path="/main/received" element={<ContributionReceived />}/>
           <Route path="/main/report" element={<Report />}/>
           <Route path="/main/members" element={<Members />}/>
           <Route path="/main/user-settings" element={<UserSettings />}/>

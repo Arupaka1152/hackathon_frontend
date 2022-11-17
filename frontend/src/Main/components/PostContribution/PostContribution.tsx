@@ -102,12 +102,19 @@ function PostContribution(props: postContributionProps) {
     }, []);
 
     const onSubmitPostContribution = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        if (receiverId === "") {
+            alert("コントリビューションを送りたい人を選んでください。");
+            e.preventDefault();
+            return;
+        }
         if (points < 1 || points > 100) {
             alert("ポイントは1以上100以下で指定してください。");
+            e.preventDefault();
             return;
         };
         if (message === "") {
             alert("メッセージを記入してください。");
+            e.preventDefault();
             return;
         };
         postContribution(receiverId, points, message);
@@ -121,6 +128,7 @@ function PostContribution(props: postContributionProps) {
                 <div className="PostContribution-title">コントリビューションを投稿</div>
                 <div className="input-container ic1">
                     <select onChange={(e) => {setReceiverId(e.target.value)}}>
+                        <option key="0" value=""></option>
                         {props.members.map((member) => {
                             if (senderId != member.user_id) {
                                 return <option key={member.user_id} value={member.user_id}>{member.name}</option>
