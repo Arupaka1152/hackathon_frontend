@@ -102,6 +102,14 @@ function PostContribution(props: postContributionProps) {
     }, []);
 
     const onSubmitPostContribution = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        if (points < 1 || points > 100) {
+            alert("ポイントは1以上100以下で指定してください。");
+            return;
+        };
+        if (message === "") {
+            alert("メッセージを記入してください。");
+            return;
+        };
         postContribution(receiverId, points, message);
         console.log(receiverId);
         e.preventDefault();

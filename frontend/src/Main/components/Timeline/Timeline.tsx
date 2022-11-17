@@ -12,12 +12,32 @@ type timelineProps = {
 }
 
 function Timeline(props: timelineProps) {
+
+    const convertIdToName = (userId: string) => {
+        let name: string = "";
+        props.members.map((member) => {
+            if (userId === member.user_id) {
+                name = member.name
+            }
+        });
+        
+        return name;
+    };
+
     return (
         <div className="Timeline-container">
             <ul className="contribution_ul">
                 {props.contributions.map((contribution) => {
                     return <li className="contribution_li" key={contribution.contribution_id}>
-                        <div className="contribution">{contribution.sender_id},{contribution.receiver_id},{contribution.message},{contribution.points},{contribution.reaction},{contribution.created_at},{contribution.update_at}</div>
+                        <div className="contribution">
+                            {convertIdToName(contribution.sender_id)},
+                            {convertIdToName(contribution.receiver_id)},
+                            {contribution.message},
+                            {contribution.points},
+                            {contribution.reaction},
+                            {contribution.created_at},
+                            {contribution.update_at}
+                        </div>
                     </li>;
                 })}
             </ul>
