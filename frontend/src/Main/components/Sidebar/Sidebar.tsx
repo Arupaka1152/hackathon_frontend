@@ -22,12 +22,6 @@ function Sidebar() {
     const workspaceId = sessionStorage.getItem("workspace_id");
 
     const fetchUserInfo = () => {
-        if (accessToken === null || workspaceId === null) {
-            console.log("authentication failed");
-            navigate("/login");
-            return;
-        };
-
         const options: AxiosRequestConfig = {
             url: `${BASE_URL}/api/me`,
             method: "GET",
@@ -52,6 +46,12 @@ function Sidebar() {
     useEffect(() => {
         if (!didEffect.current){
             didEffect.current = true;
+
+            if (accessToken === null || workspaceId === null) {
+                console.log("authentication failed");
+                navigate("/login");
+                return;
+            };
 
             fetchUserInfo();
         }

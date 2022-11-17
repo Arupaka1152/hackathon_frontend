@@ -18,12 +18,6 @@ function Members() {
     const workspaceId = sessionStorage.getItem("workspace_id");
 
     const fetchAllUsersInWorkspace = () => {
-        if (accessToken === null || workspaceId === null) {
-            console.log("authentication failed");
-            navigate("/login");
-            return;
-        };
-
         const options: AxiosRequestConfig = {
             url: `${BASE_URL}/api/workspace/member`,
             method: "GET",
@@ -57,6 +51,12 @@ function Members() {
     useEffect(() => {
         if (!didEffect.current){
             didEffect.current = true;
+
+            if (accessToken === null || workspaceId === null) {
+                console.log("authentication failed");
+                navigate("/login");
+                return;
+            };
 
             fetchAllUsersInWorkspace();
         }

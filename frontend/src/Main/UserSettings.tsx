@@ -20,16 +20,10 @@ function UserSettings() {
     const [ name, setName ] = useState("");
     const [ description, setDescription ] = useState("");
 
+    const accessToken = sessionStorage.getItem("authentication");
+    const workspaceId = sessionStorage.getItem("workspace_id");
+
     const fetchUserInfo = () => {
-        const accessToken = sessionStorage.getItem("authentication");
-        const workspaceId = sessionStorage.getItem("workspace_id");
-
-        if (accessToken === null || workspaceId === null) {
-            console.log("authentication failed");
-            navigate("/login");
-            return;
-        };
-
         const options: AxiosRequestConfig = {
             url: `${BASE_URL}/api/me`,
             method: "GET",
@@ -52,15 +46,6 @@ function UserSettings() {
     }
 
     const updateUserInfo = (name: string, description: string) => {
-        const accessToken = sessionStorage.getItem("authentication");
-        const workspaceId = sessionStorage.getItem("workspace_id");
-
-        if (accessToken === null || workspaceId === null) {
-            console.log("authentication failed");
-            navigate("/login");
-            return;
-        };
-
         const options: AxiosRequestConfig = {
             url: `${BASE_URL}/api/user`,
             method: "PUT",
@@ -88,15 +73,6 @@ function UserSettings() {
     }
 
     const leaveWorkspace = () => {
-        const accessToken = sessionStorage.getItem("authentication");
-        const workspaceId = sessionStorage.getItem("workspace_id");
-
-        if (accessToken === null || workspaceId === null) {
-            console.log("authentication failed");
-            navigate("/login");
-            return;
-        };
-
         const options: AxiosRequestConfig = {
             url: `${BASE_URL}/api/user`,
             method: "DELETE",
@@ -121,6 +97,12 @@ function UserSettings() {
     useEffect(() => {
         if (!didEffect.current){
             didEffect.current = true;
+
+            if (accessToken === null || workspaceId === null) {
+                console.log("authentication failed");
+                navigate("/login");
+                return;
+            };
 
             fetchUserInfo();
         }

@@ -1,31 +1,27 @@
 import React, { useState, useEffect, useRef } from "react";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Header/Header";
-/* import Timeline from "./components/Timeline";
-import PostContribution from "./components/PostContribution"; */
+import Timeline from "./components/Timeline/Timeline";
+import PostContribution from "./components/PostContribution/PostContribution";
 import { useNavigate } from "react-router-dom";
 import "./Main.css";
-import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios"
 import { Contribution } from "./types/Contribution";
+import { User } from "./types/User";
 
 const BASE_URL = "https://hackathon-backend-n7qi3ktvya-uc.a.run.app";
 
 function Main() {
 
     const navigate = useNavigate();
-    const [ contributions, setContributions ] = useState<Contribution[]>([]);
     const didEffect = useRef(false);
+    const [ contributions, setContributions ] = useState<Contribution[]>([]);
+    const [ members, setMembers ] = useState<User[]>([]);
 
     const accessToken = sessionStorage.getItem("authentication");
     const workspaceId = sessionStorage.getItem("workspace_id");
 
     const fetchContributions = () => {
-        if (accessToken === null || workspaceId === null) {
-            console.log("authentication failed");
-            navigate("/login"); //404ページみたいなのにとばす
-            return;
-        };
-
         const options: AxiosRequestConfig = {
             url: `${BASE_URL}/api/contribution`,
             method: "GET",
@@ -59,11 +55,49 @@ function Main() {
             });
     }
 
+    const fetchAllUsersInWorkspace = () => {
+        const options: AxiosRequestConfig = {
+            url: `${BASE_URL}/api/workspace/member`,
+            method: "GET",
+            headers: {
+                'authentication': accessToken,
+                'workspace_id': workspaceId
+            },
+        };
+
+        axios(options)
+            .then((res: AxiosResponse<User[]>) => {
+                for (let i = 0; i < res.data.length; i++) {
+                    setMembers((users) => [...users, { 
+                        user_id: res.data[i].user_id,
+                        name: res.data[i].name,
+                        account_id: res.data[i].account_id,
+                        workspace_id: res.data[i].workspace_id,
+                        role: res.data[i].role,
+                        description: res.data[i].description,
+                        avatar_url: res.data[i].avatar_url,
+                    }])
+                }
+            })
+            .catch((e: AxiosError<{ error: string }>) => {
+                console.log(e.message);
+                navigate("/main");
+                return;
+            });
+    };
+
     useEffect(() => {
         if (!didEffect.current){
             didEffect.current = true;
 
+            if (accessToken === null || workspaceId === null) {
+                console.log("authentication failed");
+                navigate("/login");
+                return;
+            };
+
             fetchContributions();
+            fetchAllUsersInWorkspace();
         }
     }, []);
 
@@ -74,7 +108,20 @@ function Main() {
                 title={"ホーム"}
             />
             <div className="main-container">
-
+                <div className="timeline-container">
+                    <Timeline 
+                        contributions={contributions}
+                        setContributions={setContributions}
+                        members={members}
+                    />
+                </div>
+                <div className="postContribution-container">
+                    <PostContribution 
+                        contributions={contributions}
+                        setContributions={setContributions}
+                        members={members}
+                    />
+                </div>
             </div>
         </div>
     )
