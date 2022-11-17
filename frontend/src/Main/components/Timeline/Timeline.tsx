@@ -11,7 +11,38 @@ type timelineProps = {
     members: User[];
 }
 
+const BASE_URL = "https://hackathon-backend-n7qi3ktvya-uc.a.run.app";
+
 function Timeline(props: timelineProps) {
+
+    const [ contributionId, setContributionId ] = useState("");
+
+    const accessToken = sessionStorage.getItem("authentication");
+    const workspaceId = sessionStorage.getItem("workspace_id");
+
+    const sendReaction = (contributionId: string) => {
+        const options: AxiosRequestConfig = {
+            url: `${BASE_URL}/api/contribution/reaction`,
+            method: "POST",
+            headers: {
+                'authentication': accessToken,
+                'workspace_id': workspaceId
+            },
+            data: {
+                contribution_id: contributionId
+            }
+        };
+
+        axios(options)
+            .then(() => {
+                alert("リアクションを送信しました。");
+            })
+            .catch((e: AxiosError<{ error: string }>) => {
+                console.log(e.message);
+                alert("リアクションを送信できませんでした。");
+                return;
+            });
+    }
 
     const convertIdToName = (userId: string) => {
         let name: string = "";
@@ -20,15 +51,19 @@ function Timeline(props: timelineProps) {
                 name = member.name
             }
         });
-        
         return name;
+    };
+
+    const onClickSendButton = (contributionId: string) => {
+        sendReaction(contributionId);
     };
 
     return (
         <div className="Timeline-container">
             <ul className="contribution_ul">
                 {props.contributions.map((contribution) => {
-                    return <li className="contribution_li" key={contribution.contribution_id}>
+                    return (
+                    <li className="contribution_li" key={contribution.contribution_id}>
                         <div className="contribution">
                             {convertIdToName(contribution.sender_id)},
                             {convertIdToName(contribution.receiver_id)},
@@ -38,7 +73,12 @@ function Timeline(props: timelineProps) {
                             {contribution.created_at},
                             {contribution.update_at}
                         </div>
-                    </li>;
+                        <button 
+                            className="reaction-button"
+                            onClick={() => onClickSendButton(contribution.contribution_id)}
+                        >Good!!</button>
+                    </li>
+                    );
                 })}
             </ul>
         </div>
