@@ -6,15 +6,27 @@ import { Contribution } from "./types/Contribution";
 import { User } from "./types/User";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Header/Header";
-import Timeline from "./components/Timeline/Timeline";
+import EditContribution from "./components/EditContribution/EditContribution";
+import TimelineForSent from "./components/TimelineForSent/TimelineForSent";
 
 const BASE_URL = "https://hackathon-backend-n7qi3ktvya-uc.a.run.app";
+
+export type ContributionContent = {
+    contribution_id: string;
+    points: number;
+    message: string;
+}
 
 function ContributionSent() {
 
     const navigate = useNavigate();
     const didEffect = useRef(false);
     const [ contributions, setContributions ] = useState<Contribution[]>([]);
+    const [ targetContributionContent, setTargetContributionContent ] = useState<ContributionContent>({
+        contribution_id: "",
+        points: 1,
+        message: "",
+    });
     const [ members, setMembers ] = useState<User[]>([]);
 
     const accessToken = sessionStorage.getItem("authentication");
@@ -108,10 +120,19 @@ function ContributionSent() {
             />
             <div className="ContributionSent-container">
             <div className="timeline-container">
-                    <Timeline 
+                    <TimelineForSent
                         contributions={contributions}
                         setContributions={setContributions}
                         members={members}
+                        targetContributionContent={targetContributionContent}
+                        setTargetContributionContent={setTargetContributionContent}
+                    />
+                    <EditContribution
+                        contributions={contributions}
+                        setContributions={setContributions}
+                        members={members}
+                        targetContributionContent={targetContributionContent}
+                        setTargetContributionContent={setTargetContributionContent}
                     />
                 </div>
             </div>

@@ -82,7 +82,6 @@ function PostContribution(props: postContributionProps) {
             .catch((e: AxiosError<{ error: string }>) => {
                 console.log(e.message);
                 alert("コントリビューションを投稿できませんでした。");
-                navigate("/main");
                 return;
             });
     };
