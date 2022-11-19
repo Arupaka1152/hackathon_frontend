@@ -74,7 +74,6 @@ function PostContribution(props: postContributionProps) {
                     created_at: res.data.created_at,
                     update_at: res.data.update_at
                 }]);
-                alert("コントリビューションを投稿しました。");
                 setReceiverId("");
                 setPoints(1);
                 setMessage("");
@@ -127,9 +126,9 @@ function PostContribution(props: postContributionProps) {
                 <div className="PostContribution-title">コントリビューションを投稿</div>
                 <div className="input-container ic1">
                     <select onChange={(e) => {setReceiverId(e.target.value)}}>
-                        <option key="0" value=""></option>
+                        <option key="0" value="">ユーザーを選択</option>
                         {props.members.map((member) => {
-                            if (senderId != member.user_id) {
+                            if (senderId !== member.user_id) {
                                 return <option key={member.user_id} value={member.user_id}>{member.name}</option>
                             }
                         })}

@@ -16,6 +16,14 @@ type editContributionProps = {
     setTargetContributionContent: React.Dispatch<React.SetStateAction<ContributionContent>>;
 }
 
+type editContributionRes = {
+    contribution_id: string;
+    receiver_id: string;
+    points: number;
+    message: string;
+    update_at: string;
+}
+
 function EditContribution(props: editContributionProps) {
 
     const navigate = useNavigate();
@@ -40,12 +48,39 @@ function EditContribution(props: editContributionProps) {
         };
 
         axios(options)
-            .then(() => {
+            .then((res: AxiosResponse<editContributionRes>) => {
                 alert("コントリビューションを編集しました。");
                 props.setTargetContributionContent({
                     contribution_id: "",
                     points: 1,
                     message: "",
+                });
+                props.setContributions(() => {
+                    const targetContribution = props.contributions.find(
+                        (contribution) => {
+                            return(
+                                contribution.contribution_id === contributionId
+                            );
+                        }
+                    );
+
+                    if (targetContribution === undefined) {
+                        return props.contributions;
+                    }
+
+                    const contributions = props.contributions.filter(
+                        (contribution) => {
+                            return(
+                                contribution.contribution_id !== contributionId
+                            );
+                        }
+                    );
+
+                    targetContribution.points = res.data.points;
+                    targetContribution.message = res.data.message;
+                    targetContribution.update_at = res.data.update_at;
+
+                    return [...contributions, targetContribution];
                 });
             })
             .catch((e: AxiosError<{ error: string }>) => {

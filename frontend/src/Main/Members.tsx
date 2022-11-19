@@ -72,7 +72,7 @@ function Members() {
                 <ul className="memberList">
                     {users.map((user) => {
                         return <li className="member_info" key={user.user_id}>
-                            <div className="member">{user.user_id},{user.name},{user.description}</div>
+                            <div className="member">{user.name},{user.description},{user.role}</div>
                         </li>;
                     })}
                 </ul>

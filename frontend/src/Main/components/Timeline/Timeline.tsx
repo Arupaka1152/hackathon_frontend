@@ -11,11 +11,15 @@ type timelineProps = {
     members: User[];
 }
 
+type sendReactionRes = {
+    contribution_id: string;
+    reaction: number;
+    update_at: string;
+}
+
 const BASE_URL = "https://hackathon-backend-n7qi3ktvya-uc.a.run.app";
 
 function Timeline(props: timelineProps) {
-
-    const [ contributionId, setContributionId ] = useState("");
 
     const accessToken = sessionStorage.getItem("authentication");
     const workspaceId = sessionStorage.getItem("workspace_id");
@@ -34,8 +38,33 @@ function Timeline(props: timelineProps) {
         };
 
         axios(options)
-            .then(() => {
-                alert("リアクションを送信しました。");
+            .then((res: AxiosResponse<sendReactionRes>) => {
+                props.setContributions(() => {
+                    const targetContribution = props.contributions.find(
+                        (contribution) => {
+                            return(
+                                contribution.contribution_id === contributionId
+                            );
+                        }
+                    );
+
+                    if (targetContribution === undefined) {
+                        return props.contributions;
+                    }
+
+                    const contributions = props.contributions.filter(
+                        (contribution) => {
+                            return(
+                                contribution.contribution_id !== contributionId
+                            );
+                        }
+                    );
+
+                    targetContribution.reaction = res.data.reaction;
+                    targetContribution.update_at = res.data.update_at;
+
+                    return [...contributions, targetContribution];
+                });
             })
             .catch((e: AxiosError<{ error: string }>) => {
                 console.log(e.message);

@@ -14,6 +14,12 @@ type timelineForSentProps = {
     setTargetContributionContent: React.Dispatch<React.SetStateAction<ContributionContent>>;
 }
 
+type sendReactionRes = {
+    contribution_id: string;
+    reaction: number;
+    update_at: string;
+}
+
 const BASE_URL = "https://hackathon-backend-n7qi3ktvya-uc.a.run.app";
 
 function TimelineForSent(props: timelineForSentProps) {
@@ -24,7 +30,7 @@ function TimelineForSent(props: timelineForSentProps) {
     const accessToken = sessionStorage.getItem("authentication");
     const workspaceId = sessionStorage.getItem("workspace_id");
 
-    const deleteReaction = (contributionId: string) => {
+    const deleteContribution = (contributionId: string) => {
         const options: AxiosRequestConfig = {
             url: `${BASE_URL}/api/contribution`,
             method: "DELETE",
@@ -39,7 +45,15 @@ function TimelineForSent(props: timelineForSentProps) {
 
         axios(options)
             .then(() => {
-                alert("コントリビューションを削除しました。");
+                props.setContributions(() => {
+                    return props.contributions.filter(
+                        (contribution) => {
+                            return(
+                                contribution.contribution_id !== contributionId
+                            );
+                        }
+                    );
+                });
             })
             .catch((e: AxiosError<{ error: string }>) => {
                 console.log(e.message);
@@ -62,15 +76,40 @@ function TimelineForSent(props: timelineForSentProps) {
         };
 
         axios(options)
-            .then(() => {
-                alert("リアクションを送信しました。");
+            .then((res: AxiosResponse<sendReactionRes>) => {
+                props.setContributions(() => {
+                    const targetContribution = props.contributions.find(
+                        (contribution) => {
+                            return(
+                                contribution.contribution_id === contributionId
+                            );
+                        }
+                    );
+
+                    if (targetContribution === undefined) {
+                        return props.contributions;
+                    }
+
+                    const contributions = props.contributions.filter(
+                        (contribution) => {
+                            return(
+                                contribution.contribution_id !== contributionId
+                            );
+                        }
+                    );
+
+                    targetContribution.reaction = res.data.reaction;
+                    targetContribution.update_at = res.data.update_at;
+
+                    return [...contributions, targetContribution];
+                });
             })
             .catch((e: AxiosError<{ error: string }>) => {
                 console.log(e.message);
                 alert("リアクションを送信できませんでした。");
                 return;
             });
-    }
+    };
 
     const convertIdToName = (userId: string) => {
         let name: string = "";
@@ -83,7 +122,7 @@ function TimelineForSent(props: timelineForSentProps) {
     };
 
     const onClickDeleteButton = (contributionId: string) => {
-        deleteReaction(contributionId);
+        deleteContribution(contributionId);
     };
 
     const onClickSendReactionButton = (contributionId: string) => {
