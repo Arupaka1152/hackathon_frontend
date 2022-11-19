@@ -18,43 +18,48 @@ function Workspaces() {
     const [ workspaces, setWorkspaces ] = useState<Workspace[]>([]);
     const didEffect = useRef(false);
 
+    const accessToken = sessionStorage.getItem("authentication");
+
+    const fetchAllWorkspaces = () => {
+        const options: AxiosRequestConfig = {
+            url: `${BASE_URL}/workspace`,
+            method: "GET",
+            headers: {
+                'authentication': accessToken,
+            },
+        };
+
+        axios(options)
+            .then((res: AxiosResponse<Workspace[]>) => {
+                if (res.data.length >= 1) {
+                    for (let i = 0; i < res.data.length; i++) {
+                        setWorkspaces((workspaces) => [...workspaces, { 
+                            id: res.data[i].id, 
+                            name: res.data[i].name, 
+                            description: res.data[i].description,
+                            avatar_url: res.data[i].avatar_url, 
+                        }])
+                    }
+                }
+            })
+            .catch((e: AxiosError<{ error: string }>) => {
+                console.log(e.message);
+                //navigate("/login"); //アカウントを初めて作ったときは所属しているワークスペースはないので500エラーが出てもログインへは戻さない
+                return;
+            });
+    };
+
     useEffect(() => {
         if (!didEffect.current){
             didEffect.current = true;
 
-            const accessToken = sessionStorage.getItem("authentication");
             if (accessToken === null) {
                 console.log("accessToken not found");
                 navigate("/login"); //404ページみたいなのにとばす
                 return;
             };
 
-            const options: AxiosRequestConfig = {
-                url: `${BASE_URL}/workspace`,
-                method: "GET",
-                headers: {
-                    'authentication': accessToken,
-                },
-            };
-
-            axios(options)
-                .then((res: AxiosResponse<Workspace[]>) => {
-                    if (res.data.length >= 1) {
-                        for (let i = 0; i < res.data.length; i++) {
-                            setWorkspaces((workspaces) => [...workspaces, { 
-                                id: res.data[i].id, 
-                                name: res.data[i].name, 
-                                description: res.data[i].description,
-                                avatar_url: res.data[i].avatar_url, 
-                            }])
-                        }
-                    }
-                })
-                .catch((e: AxiosError<{ error: string }>) => {
-                    console.log(e.message);
-                    //navigate("/login"); //アカウントを初めて作ったときは所属しているワークスペースはないので500エラーが出てもログインへは戻さない
-                    return;
-                });
+            fetchAllWorkspaces();
         }
     }, []);
 

@@ -74,7 +74,6 @@ function PostContribution(props: postContributionProps) {
                     created_at: res.data.created_at,
                     update_at: res.data.update_at
                 }]);
-                alert("コントリビューションを投稿しました。");
                 setReceiverId("");
                 setPoints(1);
                 setMessage("");
@@ -82,7 +81,6 @@ function PostContribution(props: postContributionProps) {
             .catch((e: AxiosError<{ error: string }>) => {
                 console.log(e.message);
                 alert("コントリビューションを投稿できませんでした。");
-                navigate("/main");
                 return;
             });
     };
@@ -102,12 +100,19 @@ function PostContribution(props: postContributionProps) {
     }, []);
 
     const onSubmitPostContribution = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        if (receiverId === "") {
+            alert("コントリビューションを送りたい人を選んでください。");
+            e.preventDefault();
+            return;
+        }
         if (points < 1 || points > 100) {
             alert("ポイントは1以上100以下で指定してください。");
+            e.preventDefault();
             return;
         };
         if (message === "") {
             alert("メッセージを記入してください。");
+            e.preventDefault();
             return;
         };
         postContribution(receiverId, points, message);
@@ -121,8 +126,9 @@ function PostContribution(props: postContributionProps) {
                 <div className="PostContribution-title">コントリビューションを投稿</div>
                 <div className="input-container ic1">
                     <select onChange={(e) => {setReceiverId(e.target.value)}}>
+                        <option key="0" value="">ユーザーを選択</option>
                         {props.members.map((member) => {
-                            if (senderId != member.user_id) {
+                            if (senderId !== member.user_id) {
                                 return <option key={member.user_id} value={member.user_id}>{member.name}</option>
                             }
                         })}

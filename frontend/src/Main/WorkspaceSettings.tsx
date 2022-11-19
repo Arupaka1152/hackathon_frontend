@@ -1,15 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Header/Header";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./WorkspaceSettings.css";
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
-import { sidebarProps } from "./components/Sidebar/Sidebar";
 import { User } from "./types/User";
 import { UserInfo } from "./types/User";
 import { Workspace } from "./types/Workspace";
 
 const BASE_URL = "https://hackathon-backend-n7qi3ktvya-uc.a.run.app";
+
+type changeRoleRes = {
+    user_id: string;
+    role: string;
+}
 
 function WorkspaceSettings() {
 
@@ -21,7 +25,7 @@ function WorkspaceSettings() {
     const [ email, setEmail ] = useState("");
     const [ name, setName ] = useState("");
     const [ role, setRole ] = useState("");
-    const [ userId, setUserId ] = useState("");
+    const [ targetUserRole, setTargetUserRole ] = useState("");
 
     const accessToken = sessionStorage.getItem("authentication");
     const workspaceId = sessionStorage.getItem("workspace_id");
@@ -152,7 +156,7 @@ function WorkspaceSettings() {
             });
     };
 
-    const updateRole = (userId: string, role: string) => {
+    const changeRole = (userId: string, role: string) => {
         const options: AxiosRequestConfig = {
             url: `${BASE_URL}/api/workspace/role`,
             method: "POST",
@@ -167,8 +171,33 @@ function WorkspaceSettings() {
         };
 
         axios(options)
-            .then(() => {
+            .then((res: AxiosResponse<changeRoleRes>) => {
                 alert("ユーザーの権限を変更しました。");
+                setUsers(() => {
+                    const targetUser = users.find(
+                        (user) => {
+                            return(
+                                user.user_id === userId
+                            );
+                        }
+                    );
+
+                    if (targetUser === undefined) {
+                        return users;
+                    }
+
+                    const newUsers = users.filter(
+                        (user) => {
+                            return(
+                                user.user_id !== userId
+                            );
+                        }
+                    );
+
+                    targetUser.role = res.data.role;
+
+                    return [...newUsers, targetUser];
+                });
             })
             .catch((e: AxiosError<{ error: string }>) => {
                 console.log(e.message);
@@ -216,6 +245,15 @@ function WorkspaceSettings() {
     const onSubmitInviteUser = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         createUser(email, name, role);
         e.preventDefault();
+    };
+
+    const onSubmitDeleteUserFromWorkspace = (userId: string) => {
+        deleteUserFromWorkspace(userId);
+    };
+
+    const onSubmitChangeRole = (userId: string) => {
+        changeRole(userId, targetUserRole);
+        setTargetUserRole("");
     };
 
     useEffect(() => {
@@ -287,13 +325,11 @@ function WorkspaceSettings() {
                         ></input>
                     </div>
                     <div className="input-container ic2">
-                        <input
-                            className="workspace-settings-input"
-                            type="text"
-                            value={role}
-                            placeholder="役職"
-                            onChange={(e) => setRole(e.target.value)} //役職は選べるようにする
-                        ></input>
+                        <select onChange={(e) => {setRole(e.target.value)}}>
+                            <option key="0" value="">役職を選択</option>
+                            <option key="general" value="general">general</option>
+                            <option key="manager" value="manager">manager</option>
+                        </select> 
                     </div>
                 </form>
                 <button 
@@ -304,9 +340,20 @@ function WorkspaceSettings() {
                 <ul className="memberList">
                     {users.map((user) => {
                         return <li className="member_info" key={user.user_id}>
-                            <div className="member">{user.user_id},{user.name},{user.description},{user.role}</div>
-                            <button className="workspace-settings-button">変更</button>
-                            <button className="workspace-settings-button">削除</button>
+                            <div className="member">{user.name},{user.description},{user.role}</div>                            
+                            <select onChange={(e) => {setTargetUserRole(e.target.value)}}>
+                                <option key="0" value="">役職を選択</option>
+                                <option key="general" value="general">general</option>
+                                <option key="manager" value="manager">manager</option>
+                            </select>                            
+                            <button 
+                                className="workspace-settings-button"
+                                onClick={() => {onSubmitChangeRole(user.user_id)}}
+                            >変更</button>
+                            <button 
+                                className="workspace-settings-button"
+                                onClick={() => {onSubmitDeleteUserFromWorkspace(user.user_id)}}
+                            >削除</button>
                         </li>;
                     })}
                 </ul>

@@ -1,29 +1,40 @@
 import React, { useState, useEffect, useRef } from "react";
-import Sidebar from "./components/Sidebar/Sidebar";
-import Header from "./components/Header/Header";
-import Timeline from "./components/Timeline/Timeline";
-import PostContribution from "./components/PostContribution/PostContribution";
 import { useNavigate } from "react-router-dom";
-import "./Main.css";
+import "./ContributionSent.css";
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 import { Contribution } from "./types/Contribution";
 import { User } from "./types/User";
+import Sidebar from "./components/Sidebar/Sidebar";
+import Header from "./components/Header/Header";
+import EditContribution from "./components/EditContribution/EditContribution";
+import TimelineForSent from "./components/TimelineForSent/TimelineForSent";
 
 const BASE_URL = "https://hackathon-backend-n7qi3ktvya-uc.a.run.app";
 
-function Main() {
+export type ContributionContent = {
+    contribution_id: string;
+    points: number;
+    message: string;
+}
+
+function ContributionSent() {
 
     const navigate = useNavigate();
     const didEffect = useRef(false);
     const [ contributions, setContributions ] = useState<Contribution[]>([]);
+    const [ targetContributionContent, setTargetContributionContent ] = useState<ContributionContent>({
+        contribution_id: "",
+        points: 1,
+        message: "",
+    });
     const [ members, setMembers ] = useState<User[]>([]);
 
     const accessToken = sessionStorage.getItem("authentication");
     const workspaceId = sessionStorage.getItem("workspace_id");
 
-    const fetchContributions = () => {
+    const fetchContributionSent = () => {
         const options: AxiosRequestConfig = {
-            url: `${BASE_URL}/api/contribution`,
+            url: `${BASE_URL}/api/contribution/sent`,
             method: "GET",
             headers: {
                 'authentication': accessToken,
@@ -96,35 +107,37 @@ function Main() {
                 return;
             };
 
-            fetchContributions();
+            fetchContributionSent();
             fetchAllUsersInWorkspace();
         }
     }, []);
 
-    return (
+    return(
         <div className="main">
             <Sidebar />
             <Header 
-                title={"ホーム"}
+                title={"送信履歴"}
             />
-            <div className="main-container">
-                <div className="timeline-container">
-                    <Timeline 
+            <div className="ContributionSent-container">
+            <div className="timeline-container">
+                    <TimelineForSent
                         contributions={contributions}
                         setContributions={setContributions}
                         members={members}
+                        targetContributionContent={targetContributionContent}
+                        setTargetContributionContent={setTargetContributionContent}
                     />
-                </div>
-                <div className="postContribution-container">
-                    <PostContribution 
+                    <EditContribution
                         contributions={contributions}
                         setContributions={setContributions}
                         members={members}
+                        targetContributionContent={targetContributionContent}
+                        setTargetContributionContent={setTargetContributionContent}
                     />
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default Main;
+export default ContributionSent;
