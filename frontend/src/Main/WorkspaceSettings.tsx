@@ -148,6 +148,15 @@ function WorkspaceSettings() {
         axios(options)
             .then(() => {
                 alert("ユーザーを削除しました。");
+                setUsers(() => {
+                    return users.filter(
+                        (user) => {
+                            return(
+                                user.user_id !== userId
+                            );
+                        }
+                    );
+                });
             })
             .catch((e: AxiosError<{ error: string }>) => {
                 console.log(e.message);

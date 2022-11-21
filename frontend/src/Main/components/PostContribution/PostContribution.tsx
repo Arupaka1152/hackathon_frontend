@@ -123,9 +123,9 @@ function PostContribution(props: postContributionProps) {
     return (
         <div className="PostContribution-container">
             <form className="PostContribution-form">
-                <div className="PostContribution-title">コントリビューションを投稿</div>
-                <div className="input-container ic1">
-                    <select onChange={(e) => {setReceiverId(e.target.value)}}>
+                <div className="Contribution-title">コントリビューションを投稿</div>
+                <div className="PostContribution-container Contribution-ic1">
+                    <select onChange={(e) => {setReceiverId(e.target.value)}} className="PostContribution-select">
                         <option key="0" value="">ユーザーを選択</option>
                         {props.members.map((member) => {
                             if (senderId !== member.user_id) {
@@ -134,9 +134,9 @@ function PostContribution(props: postContributionProps) {
                         })}
                     </select>
                 </div>
-                <div className="input-container ic2">
+                <div className="PostContribution-container Contribution-ic2">
                     <input
-                        className="PostContribution-input"
+                        className="Contribution-input"
                         type="number"
                         value={points}
                         max="100"
@@ -145,9 +145,9 @@ function PostContribution(props: postContributionProps) {
                         onChange={(e) => setPoints(e.target.valueAsNumber)}
                     ></input>
                 </div>
-                <div className="input-container ic2">
+                <div className="PostContribution-container Contribution-ic2">
                     <input
-                        className="PostContribution-input"
+                        className="Contribution-input"
                         type="text"
                         value={message}
                         placeholder="メッセージ"

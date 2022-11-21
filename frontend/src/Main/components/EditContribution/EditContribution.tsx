@@ -120,10 +120,10 @@ function EditContribution(props: editContributionProps) {
     return (
         <div className="EditContribution-container">
             <form className="EditContribution-form">
-                <div className="EditContribution-title">コントリビューションを編集</div>
+                <div className="Contribution-title">コントリビューションを編集</div>
                 <div className="input-container ic2">
                     <input
-                        className="EditContribution-input"
+                        className="Contribution-input"
                         type="number"
                         value={props.targetContributionContent.points}
                         max="100"
@@ -140,7 +140,7 @@ function EditContribution(props: editContributionProps) {
                 </div>
                 <div className="input-container ic2">
                     <input
-                        className="EditContribution-input"
+                        className="Contribution-input"
                         type="text"
                         value={props.targetContributionContent.message}
                         placeholder="メッセージ"

@@ -148,20 +148,25 @@ function TimelineForSent(props: timelineForSentProps) {
                     return (
                     <li className="contribution_li" key={contribution.contribution_id}>
                         <div className="contribution">
-                            {convertIdToName(contribution.sender_id)},
-                            {convertIdToName(contribution.receiver_id)},
-                            {contribution.message},
-                            {contribution.points},
-                            {contribution.reaction},
-                            {contribution.created_at},
-                            {contribution.update_at}
+                            {convertIdToName(contribution.sender_id)} さんから
+                            {convertIdToName(contribution.receiver_id)} さんへ
+                        </div>
+                        <div className="contribution">
+                            メッセージ:{contribution.message}
+                        </div>
+                        <div className="contribution">
+                            {contribution.points}ポイント
+                        </div>
+                        <div className="contribution">
+                            投稿:{contribution.created_at}
+                            更新:{contribution.update_at}
                         </div>
                         <button 
                             className="reaction-button"
                             onClick={() => onClickSendReactionButton(contribution.contribution_id)}
-                        >Good!!</button>
+                        >いいね！{contribution.reaction}</button>
                         <button 
-                            className="reaction-button"
+                            className="timeline-edit-button"
                             onClick={() => {props.setTargetContributionContent({
                                 contribution_id: contribution.contribution_id,
                                 points: contribution.points,
@@ -169,7 +174,7 @@ function TimelineForSent(props: timelineForSentProps) {
                             })}}
                         >編集</button>
                         <button 
-                            className="reaction-button"
+                            className="timeline-delete-button"
                             onClick={() => onClickDeleteButton(contribution.contribution_id)}
                         >削除</button>
                     </li>

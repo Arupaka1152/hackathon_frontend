@@ -1,0 +1,9 @@
+.Timeline-container {
+    height: 80vh;
+    width: 100%;
+    text-align: center;
+    border-color: green;
+    border-width: 3px;
+    border-style: solid;
+    position: fixed;
+}

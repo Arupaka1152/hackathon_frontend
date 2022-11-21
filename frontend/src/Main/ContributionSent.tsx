@@ -119,7 +119,7 @@ function ContributionSent() {
                 title={"送信履歴"}
             />
             <div className="ContributionSent-container">
-            <div className="timeline-container">
+                <div className="timeline-container">
                     <TimelineForSent
                         contributions={contributions}
                         setContributions={setContributions}
@@ -127,6 +127,8 @@ function ContributionSent() {
                         targetContributionContent={targetContributionContent}
                         setTargetContributionContent={setTargetContributionContent}
                     />
+                </div>
+                <div className="postContribution-container">
                     <EditContribution
                         contributions={contributions}
                         setContributions={setContributions}
