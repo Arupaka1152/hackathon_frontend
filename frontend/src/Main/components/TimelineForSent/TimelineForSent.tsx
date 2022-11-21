@@ -45,6 +45,7 @@ function TimelineForSent(props: timelineForSentProps) {
 
         axios(options)
             .then(() => {
+                alert("コントリビューションを削除しました。");
                 props.setContributions(() => {
                     return props.contributions.filter(
                         (contribution) => {
@@ -122,7 +123,12 @@ function TimelineForSent(props: timelineForSentProps) {
     };
 
     const onClickDeleteButton = (contributionId: string) => {
-        deleteContribution(contributionId);
+        const result = window.confirm("確認：コントリビューションを削除しますか？");
+        if (result) {
+            deleteContribution(contributionId);
+        } else {
+            alert("コントリビューションの削除をキャンセルしました。");
+        }
     };
 
     const onClickSendReactionButton = (contributionId: string) => {
@@ -142,7 +148,7 @@ function TimelineForSent(props: timelineForSentProps) {
     }, []);
 
     return (
-        <div className="TimelineForSent-container">
+        <div className="Timeline-container">
             <ul className="contribution_ul">
                 {props.contributions.map((contribution) => {
                     return (
@@ -162,10 +168,6 @@ function TimelineForSent(props: timelineForSentProps) {
                             更新:{contribution.update_at}
                         </div>
                         <button 
-                            className="reaction-button"
-                            onClick={() => onClickSendReactionButton(contribution.contribution_id)}
-                        >いいね！{contribution.reaction}</button>
-                        <button 
                             className="timeline-edit-button"
                             onClick={() => {props.setTargetContributionContent({
                                 contribution_id: contribution.contribution_id,
@@ -177,6 +179,10 @@ function TimelineForSent(props: timelineForSentProps) {
                             className="timeline-delete-button"
                             onClick={() => onClickDeleteButton(contribution.contribution_id)}
                         >削除</button>
+                         <button 
+                            className="reaction-button-sent"
+                            onClick={() => onClickSendReactionButton(contribution.contribution_id)}
+                        >いいね！{contribution.reaction}</button>
                     </li>
                     );
                 })}

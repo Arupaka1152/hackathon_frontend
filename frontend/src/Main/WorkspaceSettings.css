@@ -14,3 +14,50 @@
     margin-top: 8%;
     text-align: center;
 }
+
+.workspace-edit-button {
+    background-color: green;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 8px;
+    font-weight: 600;
+    height: 20px;
+    margin-top: 10px;
+    text-align: center;
+    width: 60px;
+    margin-left: 5px;
+}
+
+.workspace-delete-button {
+    background-color: red;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 8px;
+    font-weight: 600;
+    height: 20px;
+    margin-top: 10px;
+    text-align: center;
+    width: 60px;
+    margin-left: 5px;
+}
+
+.workspace-invite-button {
+    background-color: #08d;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 8px;
+    font-weight: 600;
+    height: 20px;
+    margin-top: 10px;
+    text-align: center;
+    width: 60px;
+}

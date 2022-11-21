@@ -107,7 +107,14 @@ function Sidebar() {
 
                 <li 
                     className="row"
-                    onClick={() => {navigate("/main/workspace-settings", {state: {role: role, workspaceName: workspaceName}});}}
+                    onClick={() => {
+                        if (role === "general") {
+                            alert("閲覧権限がありません。");
+                            navigate("/main");
+                        } else {
+                            navigate("/main/workspace-settings", {state: {role: role, workspaceName: workspaceName}});
+                        }
+                    }}
                 >
                     <div id="title">ワークスペース設定</div>
                 </li>

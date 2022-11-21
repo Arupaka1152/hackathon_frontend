@@ -118,25 +118,21 @@ function ContributionSent() {
             <Header 
                 title={"送信履歴"}
             />
-            <div className="ContributionSent-container">
-                <div className="timeline-container">
-                    <TimelineForSent
-                        contributions={contributions}
-                        setContributions={setContributions}
-                        members={members}
-                        targetContributionContent={targetContributionContent}
-                        setTargetContributionContent={setTargetContributionContent}
-                    />
-                </div>
-                <div className="postContribution-container">
-                    <EditContribution
-                        contributions={contributions}
-                        setContributions={setContributions}
-                        members={members}
-                        targetContributionContent={targetContributionContent}
-                        setTargetContributionContent={setTargetContributionContent}
-                    />
-                </div>
+            <div className="main-container">
+                <TimelineForSent
+                    contributions={contributions}
+                    setContributions={setContributions}
+                    members={members}
+                    targetContributionContent={targetContributionContent}
+                    setTargetContributionContent={setTargetContributionContent}
+                />
+                <EditContribution
+                    contributions={contributions}
+                    setContributions={setContributions}
+                    members={members}
+                    targetContributionContent={targetContributionContent}
+                    setTargetContributionContent={setTargetContributionContent}
+                />
             </div>
         </div>
     );

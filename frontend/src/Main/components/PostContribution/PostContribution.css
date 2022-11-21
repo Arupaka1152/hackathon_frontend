@@ -43,8 +43,16 @@
     text-align: center;
 }
 
-.Contribution-form {
-    border-radius: 20px;
-    box-sizing: border-box;
+.postContribution-container-m {
+    display: inline-block;
+    height: 40vh;
+    width: 30%;
+    text-align: center;
+    margin-left: 3%;
+    transform: translate(0, -30vh);
 }
 
+.PostContribution-container {
+    display: inline-block;
+    text-align: center;
+}

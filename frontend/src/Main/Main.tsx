@@ -108,20 +108,16 @@ function Main() {
                 title={"ホーム"}
             />
             <div className="main-container">
-                <div className="timeline-container">
-                    <Timeline 
-                        contributions={contributions}
-                        setContributions={setContributions}
-                        members={members}
-                    />
-                </div>
-                <div className="postContribution-container">
-                    <PostContribution 
-                        contributions={contributions}
-                        setContributions={setContributions}
-                        members={members}
-                    />
-                </div>
+                 <Timeline 
+                    contributions={contributions}
+                    setContributions={setContributions}
+                    members={members}
+                />
+                <PostContribution 
+                    contributions={contributions}
+                    setContributions={setContributions}
+                    members={members}
+                />
             </div>
         </div>
     )

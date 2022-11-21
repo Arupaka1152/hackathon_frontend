@@ -121,7 +121,7 @@ function PostContribution(props: postContributionProps) {
     };
 
     return (
-        <div className="PostContribution-container">
+        <div className="postContribution-container-m">
             <form className="PostContribution-form">
                 <div className="Contribution-title">コントリビューションを投稿</div>
                 <div className="PostContribution-container Contribution-ic1">

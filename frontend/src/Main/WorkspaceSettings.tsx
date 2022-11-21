@@ -247,7 +247,12 @@ function WorkspaceSettings() {
     };
 
     const onSubmitDeleteWorkspace = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        deleteWorkspace();
+        const result = window.confirm("確認：ワークスペースを削除しますか？");
+        if (result) {
+            deleteWorkspace();
+        } else {
+            alert("ワークスペースの削除をキャンセルしました。")
+          }
         e.preventDefault();
     };
 
@@ -289,7 +294,7 @@ function WorkspaceSettings() {
             <div className="workspace-settings-container">
                 <form className="workspace-settings-form">
                     <div className="workspace-settings-title">ワークスペース情報を変更</div>
-                    <div className="input-container ic1">
+                    <div className="workspace-input-container workspace-settings-ic1">
                         <input
                             className="workspace-settings-input"
                             type="text"
@@ -298,7 +303,7 @@ function WorkspaceSettings() {
                             onChange={(e) => setWorkspaceName(e.target.value)}
                         ></input>
                     </div>
-                    <div className="input-container ic2">
+                    <div className="workspace-input-container workspace-settings-ic2">
                         <input
                             className="workspace-settings-input"
                             type="text"
@@ -308,14 +313,14 @@ function WorkspaceSettings() {
                         ></input>
                     </div>
                     <button 
-                        className="workspace-settings-button"
+                        className="workspace-edit-button"
                         type="submit"
                         onClick={onSubmitWorkspaceSettings}
                     >変更</button>
                 </form>
                 <form className="workspace-settings-form">
                     <div className="workspace-settings-title">ワークスペースにメンバーを招待</div>
-                    <div className="input-container ic1">
+                    <div className="workspace-input-container workspace-settings-ic1">
                         <input
                             className="workspace-settings-input"
                             type="email"
@@ -324,7 +329,7 @@ function WorkspaceSettings() {
                             onChange={(e) => setEmail(e.target.value)}
                         ></input>
                     </div>
-                    <div className="input-container ic2">
+                    <div className="workspace-input-container workspace-settings-ic2">
                         <input
                             className="workspace-settings-input"
                             type="text"
@@ -333,7 +338,7 @@ function WorkspaceSettings() {
                             onChange={(e) => setName(e.target.value)}
                         ></input>
                     </div>
-                    <div className="input-container ic2">
+                    <div className="workspace-input-container workspace-settings-ic2">
                         <select onChange={(e) => {setRole(e.target.value)}}>
                             <option key="0" value="">役職を選択</option>
                             <option key="general" value="general">general</option>
@@ -356,11 +361,11 @@ function WorkspaceSettings() {
                                 <option key="manager" value="manager">manager</option>
                             </select>                            
                             <button 
-                                className="workspace-settings-button"
+                                className="workspace-edit-button"
                                 onClick={() => {onSubmitChangeRole(user.user_id)}}
                             >変更</button>
                             <button 
-                                className="workspace-settings-button"
+                                className="workspace-delete-button"
                                 onClick={() => {onSubmitDeleteUserFromWorkspace(user.user_id)}}
                             >削除</button>
                         </li>;

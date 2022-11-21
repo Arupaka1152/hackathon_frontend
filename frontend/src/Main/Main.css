@@ -11,31 +11,5 @@
     height: 93vh;
     width: 83%;
     transform: translate(20.5%, 7vh);
-    border-color: #cc4343;
-    border-width: 3px;
-    border-style: solid;
     position: fixed;
-}
-
-.timeline-container {
-    display: inline-block;
-    height: 80vh;
-    width: 60%;
-    text-align: center;
-    border-color: green;
-    border-width: 3px;
-    border-style: solid;
-    transform: translate(4%, 7vh);
-}
-
-.postContribution-container {
-    display: inline-block;
-    height: 60vh;
-    width: 30%;
-    margin-left: 5%;
-    text-align: center;
-    border-color: blue;
-    border-width: 3px;
-    border-style: solid;
-    transform: translate(4%, -20vh);
 }

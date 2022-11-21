@@ -118,10 +118,10 @@ function EditContribution(props: editContributionProps) {
     };
 
     return (
-        <div className="EditContribution-container">
+        <div className="postContribution-container-m">
             <form className="EditContribution-form">
                 <div className="Contribution-title">コントリビューションを編集</div>
-                <div className="input-container ic2">
+                <div className="PostContribution-container Contribution-ic1">
                     <input
                         className="Contribution-input"
                         type="number"
@@ -138,7 +138,7 @@ function EditContribution(props: editContributionProps) {
                         }}
                     ></input>
                 </div>
-                <div className="input-container ic2">
+                <div className="PostContribution-container Contribution-ic2">
                     <input
                         className="Contribution-input"
                         type="text"
