@@ -1,0 +1,31 @@
+.Timeline-container {
+    display: inline-block;
+    overflow: scroll;
+    height: 80vh;
+    width: 60%;
+    text-align: center;
+    margin-top: 3%;
+    margin-left: 3%;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.Timeline-container::-webkit-scrollbar {
+    display:none;
+}
+
+.reaction-button {
+    background-color: orchid;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 600;
+    height: 20px;
+    margin-top: 10px;
+    text-align: center;
+    width: 60px;
+    transform: translate(500%, -0.8vh);
+}

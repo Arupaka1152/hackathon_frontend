@@ -1,0 +1,58 @@
+.PostContribution-button {
+    background-color: #08d;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    height: 40px;
+    margin-top: 25px;
+    text-align: center;
+    width: 120px;
+}
+
+.Contribution-title {
+    font-size: 24px;
+}
+
+.PostContribution-select {
+    border-radius: 12px;
+    font-size: 20px;
+    height: 50px;
+    width: 300px;
+    padding: 4px 20px 0;
+    text-align: center;
+}
+
+.Contribution-ic1 {
+    margin-top: 15px;
+}
+
+.Contribution-ic2 {
+    margin-top: 10px;
+}
+
+.Contribution-input {
+    border-radius: 12px;
+    font-size: 20px;
+    height: 50px;
+    padding: 4px 20px 0;
+    width: 300px;
+    text-align: center;
+}
+
+.postContribution-container-m {
+    display: inline-block;
+    height: 40vh;
+    width: 30%;
+    text-align: center;
+    margin-left: 3%;
+    transform: translate(0, -30vh);
+}
+
+.PostContribution-container {
+    display: inline-block;
+    text-align: center;
+}

@@ -74,7 +74,7 @@ function Timeline(props: timelineProps) {
     }
 
     const convertIdToName = (userId: string) => {
-        let name: string = "";
+        let name: string = "DeletedUser";
         props.members.map((member) => {
             if (userId === member.user_id) {
                 name = member.name
@@ -94,18 +94,23 @@ function Timeline(props: timelineProps) {
                     return (
                     <li className="contribution_li" key={contribution.contribution_id}>
                         <div className="contribution">
-                            {convertIdToName(contribution.sender_id)},
-                            {convertIdToName(contribution.receiver_id)},
-                            {contribution.message},
-                            {contribution.points},
-                            {contribution.reaction},
-                            {contribution.created_at},
-                            {contribution.update_at}
+                            {convertIdToName(contribution.sender_id)} さんから
+                            {convertIdToName(contribution.receiver_id)} さんへ
+                        </div>
+                        <div className="contribution">
+                            メッセージ:{contribution.message}
+                        </div>
+                        <div className="contribution">
+                            {contribution.points}ポイント
+                        </div>
+                        <div className="contribution">
+                            投稿:{contribution.created_at}
+                            更新:{contribution.update_at}
                         </div>
                         <button 
                             className="reaction-button"
                             onClick={() => onClickSendButton(contribution.contribution_id)}
-                        >Good!!</button>
+                        >いいね！{contribution.reaction}</button>
                     </li>
                     );
                 })}

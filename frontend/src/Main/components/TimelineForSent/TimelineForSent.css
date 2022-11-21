@@ -1,0 +1,63 @@
+.timeline-edit-button {
+    background-color: green;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 600;
+    height: 20px;
+    margin-top: 10px;
+    text-align: center;
+    width: 60px;
+}
+
+.timeline-delete-button {
+    background-color: red;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 600;
+    height: 20px;
+    margin-top: 10px;
+    text-align: center;
+    width: 60px;
+    margin-left: 5px;
+}
+
+.reaction-button-sent {
+    background-color: orchid;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 600;
+    height: 20px;
+    margin-top: 10px;
+    text-align: center;
+    width: 60px;
+    margin-left: 5px;
+}
+
+.contribution_ul {
+    list-style-type: none;
+}
+
+.contribution_li {
+    background-color: white;
+    margin-top: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 12px;
+}
+
+.contribution {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}

@@ -85,10 +85,12 @@ function UserSettings() {
         axios(options)
             .then(() => {
                 sessionStorage.removeItem('workspace_id');
+                alert("ワークスペースを退出しました。");
                 navigate("/workspaces");
             })
             .catch((e: AxiosError<{ error: string }>) => {
                 console.log(e.message);
+                alert("ワークスペースを退出できませんでした。");
                 navigate("/main");
                 return;
             });
@@ -114,7 +116,12 @@ function UserSettings() {
     };
 
     const onSubmitLeaveWorkspace = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        leaveWorkspace();
+        const result = window.confirm("確認：ワークスペースを退出しますか？");
+        if (result) {
+            leaveWorkspace();
+        } else {
+            alert("ワークスペースの退出をキャンセルしました。")
+        }
         e.preventDefault();
     }; 
 
@@ -127,7 +134,7 @@ function UserSettings() {
             <div className="user-settings-container">
                 <form className="user-settings-form">
                     <div className="user-settings-title">ユーザー情報を変更</div>
-                    <div className="input-container ic1">
+                    <div className="user-settings-input-container user-settings-ic1">
                         <input
                             className="user-settings-input"
                             type="text"
@@ -136,7 +143,7 @@ function UserSettings() {
                             onChange={(e) => setName(e.target.value)}
                         ></input>
                     </div>
-                    <div className="input-container ic2">
+                    <div className="user-settings-input-container user-settings-ic2">
                         <input
                             className="user-settings-input"
                             type="text"

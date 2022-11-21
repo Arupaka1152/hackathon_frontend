@@ -106,14 +106,12 @@ function ContributionReceived() {
             <Header 
                 title={"受信履歴"}
             />
-            <div className="ContributionReceived-container">
-                <div className="timeline-container">
-                    <Timeline 
-                        contributions={contributions}
-                        setContributions={setContributions}
-                        members={members}
-                    />
-                </div>
+            <div className="main-container">
+                <Timeline 
+                    contributions={contributions}
+                    setContributions={setContributions}
+                    members={members}
+                />
             </div>
         </div>
     );

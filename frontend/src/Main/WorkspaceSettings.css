@@ -8,9 +8,60 @@
 
 .workspace-settings-container {
     display: inline-block;
-    height: 80%;
+    height: 93vh;
     width: 83%;
-    margin-left: 17%;
-    margin-top: 8%;
+    transform: translate(20.5%, 7vh);
+    position: fixed;
     text-align: center;
+}
+
+.workspace-edit-button {
+    background-color: green;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 600;
+    height: 20px;
+    margin-top: 10px;
+    text-align: center;
+    width: 60px;
+    margin-left: 5px;
+}
+
+.workspace-delete-button {
+    background-color: red;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 600;
+    height: 20px;
+    margin-top: 10px;
+    text-align: center;
+    width: 60px;
+    margin-left: 5px;
+}
+
+.workspace-invite-button {
+    background-color: #08d;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 600;
+    height: 20px;
+    margin-top: 10px;
+    text-align: center;
+    width: 60px;
+}
+
+.workspace-settings-form {
+    margin-top: 20px;
 }
