@@ -120,7 +120,7 @@ function UserSettings() {
         if (result) {
             leaveWorkspace();
         } else {
-            alert("ワークスペースの削除をキャンセルしました。")
+            alert("ワークスペースの退出をキャンセルしました。")
         }
         e.preventDefault();
     }; 

@@ -63,8 +63,9 @@ function Workspaces() {
         }
     }, []);
 
-    const onClickEnterButton = (workspaceId: string) => {
+    const onClickEnterButton = (workspaceId: string, workspaceName: string) => {
         sessionStorage.setItem('workspace_id', workspaceId);
+        sessionStorage.setItem('workspace_name', workspaceName);
         navigate("/main");
     }
 
@@ -78,7 +79,7 @@ function Workspaces() {
                             <div className="Workspace_name">{workspace.name}</div>
                             <button 
                                 className="Workspaces-button"
-                                onClick={() => onClickEnterButton(workspace.id)}
+                                onClick={() => onClickEnterButton(workspace.id, workspace.name)}
                             >Enter
                             </button>
                         </li>;

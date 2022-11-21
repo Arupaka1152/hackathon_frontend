@@ -8,9 +8,13 @@
 
 .members-container {
     display: inline-block;
-    height: 80%;
+    height: 93vh;
     width: 83%;
-    margin-left: 17%;
-    margin-top: 8%;
+    transform: translate(20.5%, 7vh);
+    position: fixed;
     text-align: center;
+}
+
+.memberList {
+    margin-top: 20px;
 }

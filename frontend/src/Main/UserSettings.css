@@ -8,10 +8,10 @@
 
 .user-settings-container {
     display: inline-block;
-    height: 80%;
+    height: 93vh;
     width: 83%;
-    margin-left: 17%;
-    margin-top: 8%;
+    transform: translate(20.5%, 7vh);
+    position: fixed;
     text-align: center;
 }
 
@@ -22,7 +22,7 @@
     box-sizing: border-box;
     color: #eee;
     cursor: pointer;
-    font-size: 8px;
+    font-size: 10px;
     font-weight: 600;
     height: 20px;
     margin-top: 10px;
@@ -37,10 +37,14 @@
     box-sizing: border-box;
     color: #eee;
     cursor: pointer;
-    font-size: 8px;
+    font-size: 10px;
     font-weight: 600;
     height: 20px;
     margin-top: 10px;
     text-align: center;
     width: 60px;
+}
+
+.user-settings-form {
+    margin-top: 20px;
 }

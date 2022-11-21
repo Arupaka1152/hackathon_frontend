@@ -15,11 +15,11 @@ function Sidebar() {
 
     const navigate = useNavigate();
     const [ role, setRole ] = useState("");
-    const [ workspaceName, setWorkspaceName ] = useState("");
     const didEffect = useRef(false);
 
     const accessToken = sessionStorage.getItem("authentication");
     const workspaceId = sessionStorage.getItem("workspace_id");
+    let workspaceName = sessionStorage.getItem('workspace_name');
 
     const fetchUserInfo = () => {
         const options: AxiosRequestConfig = {
@@ -34,7 +34,9 @@ function Sidebar() {
         axios(options)
             .then((res: AxiosResponse<UserInfo>) => {
                 setRole(res.data.role);
-                setWorkspaceName(res.data.workspace_name);
+                if (workspaceName !== res.data.workspace_name) {
+                    sessionStorage.setItem('workspace_name',res.data.workspace_name);
+                }
             })
             .catch((e: AxiosError<{ error: string }>) => {
                 console.log(e.message);
