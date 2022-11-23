@@ -14,3 +14,11 @@
     position: fixed;
     text-align: center;
 }
+
+.report-ul {
+    margin-top: 20px;
+}
+
+.report-div {
+    margin-top: 20px;
+}

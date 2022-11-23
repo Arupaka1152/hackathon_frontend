@@ -154,11 +154,13 @@ function PostContribution(props: postContributionProps) {
                         onChange={(e) => setMessage(e.target.value)}
                     ></input>
                 </div>
-                <button 
-                    className="PostContribution-button"
-                    type="submit"
-                    onClick={onSubmitPostContribution}
-                >投稿</button>
+                <div className="PostContribution-container Contribution-ic2">
+                    <button 
+                        className="PostContribution-button"
+                        type="submit"
+                        onClick={onSubmitPostContribution}
+                    >投稿</button>
+                </div>
             </form>
         </div>
     )
