@@ -153,11 +153,13 @@ function EditContribution(props: editContributionProps) {
                         }}
                     ></input>
                 </div>
-                <button 
-                    className="EditContribution-button"
-                    type="submit"
-                    onClick={onSubmitEditContribution}
-                >編集</button>
+                <div className="PostContribution-container Contribution-ic2">
+                    <button 
+                        className="EditContribution-button"
+                        type="submit"
+                        onClick={onSubmitEditContribution}
+                    >編集</button>
+                </div>
             </form>
         </div>
     )
