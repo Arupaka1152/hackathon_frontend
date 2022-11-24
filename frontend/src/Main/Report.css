@@ -17,6 +17,7 @@
 
 .report-ul {
     margin-top: 20px;
+    list-style-type: none;
 }
 
 .report-div {

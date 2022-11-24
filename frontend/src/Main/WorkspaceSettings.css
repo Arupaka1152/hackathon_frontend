@@ -7,12 +7,11 @@
 }
 
 .workspace-settings-container {
-    display: inline-block;
+    display: flex;
     height: 93vh;
     width: 83%;
     transform: translate(20.5%, 7vh);
     position: fixed;
-    text-align: center;
 }
 
 .workspace-edit-button {
@@ -25,7 +24,6 @@
     font-size: 10px;
     font-weight: 600;
     height: 20px;
-    margin-top: 10px;
     text-align: center;
     width: 60px;
     margin-left: 5px;
@@ -41,7 +39,6 @@
     font-size: 10px;
     font-weight: 600;
     height: 20px;
-    margin-top: 10px;
     text-align: center;
     width: 60px;
     margin-left: 5px;
@@ -64,4 +61,65 @@
 
 .workspace-settings-form {
     margin-top: 20px;
+}
+
+.workspace-settings-left {
+    display: inline-block;
+    /* border-width: 3px;
+    border-style: solid;
+    border-color: red; */
+    height: 80vh;
+    width: 45%;
+    text-align: center;
+    margin-top: 3%;
+    margin-left: 3%;
+}
+
+.workspace-settings-right {
+    display: inline-block;
+    /* border-width: 3px;
+    border-style: solid;
+    border-color: blue; */
+    height: 80vh;
+    width: 45%;
+    margin-left: 3%;
+    text-align: center;
+    transform: translate(0, 6vh);
+}
+
+.memberList {
+    list-style-type: none;
+}
+
+.member_info {
+    display: flex;
+}
+
+.table-container {
+    text-align: center;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.table-container::-webkit-scrollbar {
+    display: none;
+}
+
+.workspace-settings-table {
+    margin-top: 10px;
+    width: 100%;
+    border-spacing: 0px 10px;
+}
+
+.workspace-settings-thead {
+
+}
+
+.workspace-settings-tbody {
+
+}
+
+.workspace-settings-tr {
+    margin-top: 3px;
 }
