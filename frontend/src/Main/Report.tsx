@@ -1,40 +1,37 @@
 import React, { useState, useEffect, useRef } from "react";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Header/Header";
-import { User } from "./types/User";
 import { useNavigate } from "react-router-dom";
-import { Contribution } from "./types/Contribution";
+import { UserInfo } from "./types/User";
 import "./Report.css";
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 
 const BASE_URL = "https://hackathon-backend-n7qi3ktvya-uc.a.run.app";
 
-type contributionInfo = {
+type ContributionReport = {
     user_id: string
-    points: number
-    reactions: number
+    name: string
+    contribution_sent: number
+    points_sent: number
+    reaction_sent: number
+    contribution_received: number
+    points_received: number
+    reaction_received: number
 }
 
 function Report() {
 
     const navigate = useNavigate();
     const didEffect = useRef(false);
-    const [ users, setUsers ] = useState<User[]>([]);
-    const [ contributions, setContributions ] = useState<Contribution[]>([]);
-    const [ sentContributions, setSentContributions ] = useState<Contribution[]>([]);
-    const [ receivedContributions, setReceivedContributions ] = useState<Contribution[]>([]);
-    const [ contributionInfo, setContributionInfo ] = useState<contributionInfo[]>([]);
-    const [ sentPoints, setSentPoints ] = useState(0);
-    const [ sentReactions, setSentReactions ] = useState(0);
-    const [ receivedPoints, setReceivedPoints ] = useState(0);
-    const [ receivedReactions, setReceivedReactions ] = useState(0);
+    const [ userId, setUserId ] = useState("");
+    const [ contributionReport, setContributionReport ] = useState<ContributionReport[]>([]);
 
     const accessToken = sessionStorage.getItem("authentication");
     const workspaceId = sessionStorage.getItem("workspace_id");
 
-    const fetchAllUsersInWorkspace = () => {
+    const fetchUserInfo = () => {
         const options: AxiosRequestConfig = {
-            url: `${BASE_URL}/api/workspace/member`,
+            url: `${BASE_URL}/api/me`,
             method: "GET",
             headers: {
                 'authentication': accessToken,
@@ -43,16 +40,38 @@ function Report() {
         };
 
         axios(options)
-            .then((res: AxiosResponse<User[]>) => {
+            .then((res: AxiosResponse<UserInfo>) => {
+                setUserId(res.data.user_id);
+            })
+            .catch((e: AxiosError<{ error: string }>) => {
+                console.log(e.message);
+                navigate("/main");
+                return;
+            });
+    };
+
+    const fetchContributionReport = () => {
+        const options: AxiosRequestConfig = {
+            url: `${BASE_URL}/api/contribution/report`,
+            method: "GET",
+            headers: {
+                'authentication': accessToken,
+                'workspace_id': workspaceId
+            },
+        };
+
+        axios(options)
+            .then((res: AxiosResponse<ContributionReport[]>) => {
                 for (let i = 0; i < res.data.length; i++) {
-                    setUsers((users) => [...users, { 
+                    setContributionReport((report) => [...report, {
                         user_id: res.data[i].user_id,
                         name: res.data[i].name,
-                        account_id: res.data[i].account_id,
-                        workspace_id: res.data[i].workspace_id,
-                        role: res.data[i].role,
-                        description: res.data[i].description,
-                        avatar_url: res.data[i].avatar_url,
+                        contribution_sent: res.data[i].contribution_sent,
+                        points_sent: res.data[i].points_sent,
+                        reaction_sent: res.data[i].reaction_sent,
+                        contribution_received: res.data[i].contribution_received,
+                        points_received: res.data[i].points_received,
+                        reaction_received: res.data[i].reaction_received
                     }])
                 }
             })
@@ -62,142 +81,6 @@ function Report() {
                 return;
             });
     };
-
-    const fetchContributions = () => {
-        const options: AxiosRequestConfig = {
-            url: `${BASE_URL}/api/contribution`,
-            method: "GET",
-            headers: {
-                'authentication': accessToken,
-                'workspace_id': workspaceId
-            },
-        };
-
-        axios(options)
-            .then((res: AxiosResponse<Contribution[]>) => {
-                if (res.data.length >= 1) {
-                    for (let i = 0; i < res.data.length; i++) {
-                        setContributions((contributions) => [...contributions, { 
-                            contribution_id: res.data[i].contribution_id,
-                            workspace_id: res.data[i].workspace_id,
-                            sender_id: res.data[i].sender_id,
-                            receiver_id: res.data[i].receiver_id,
-                            points: res.data[i].points,
-                            message: res.data[i].message,
-                            reaction: res.data[i].reaction,
-                            created_at: res.data[i].created_at,
-                            update_at: res.data[i].update_at
-                        }])
-                    }
-                }
-            })
-            .catch((e: AxiosError<{ error: string }>) => {
-                console.log(e.message);
-                return;
-            });
-    }
-
-    const fetchContributionSent = () => {
-        const options: AxiosRequestConfig = {
-            url: `${BASE_URL}/api/contribution/sent`,
-            method: "GET",
-            headers: {
-                'authentication': accessToken,
-                'workspace_id': workspaceId
-            },
-        };
-
-        axios(options)
-            .then((res: AxiosResponse<Contribution[]>) => {
-                if (res.data.length >= 1) {
-                    for (let i = 0; i < res.data.length; i++) {
-                        setSentContributions((contributions) => [...contributions, { 
-                            contribution_id: res.data[i].contribution_id,
-                            workspace_id: res.data[i].workspace_id,
-                            sender_id: res.data[i].sender_id,
-                            receiver_id: res.data[i].receiver_id,
-                            points: res.data[i].points,
-                            message: res.data[i].message,
-                            reaction: res.data[i].reaction,
-                            created_at: res.data[i].created_at,
-                            update_at: res.data[i].update_at
-                        }])
-                    }
-                }
-            })
-            .catch((e: AxiosError<{ error: string }>) => {
-                console.log(e.message);
-                return;
-            });
-    }
-
-    const fetchContributionReceived = () => {
-        const options: AxiosRequestConfig = {
-            url: `${BASE_URL}/api/contribution/received`,
-            method: "GET",
-            headers: {
-                'authentication': accessToken,
-                'workspace_id': workspaceId
-            },
-        };
-
-        axios(options)
-            .then((res: AxiosResponse<Contribution[]>) => {
-                if (res.data.length >= 1) {
-                    for (let i = 0; i < res.data.length; i++) {
-                        setReceivedContributions((contributions) => [...contributions, { 
-                            contribution_id: res.data[i].contribution_id,
-                            workspace_id: res.data[i].workspace_id,
-                            sender_id: res.data[i].sender_id,
-                            receiver_id: res.data[i].receiver_id,
-                            points: res.data[i].points,
-                            message: res.data[i].message,
-                            reaction: res.data[i].reaction,
-                            created_at: res.data[i].created_at,
-                            update_at: res.data[i].update_at
-                        }])
-                    }
-                }
-            })
-            .catch((e: AxiosError<{ error: string }>) => {
-                console.log(e.message);
-                return;
-            });
-    }
-
-    const calcContributions = () => {
-        users.map((user) => {
-            const targetContributions = contributions.filter((contribution) => {
-                return (
-                    contribution.receiver_id === user.user_id
-                );
-            });
-            console.log(targetContributions);
-            let points = 0;
-            let reactions = 0;
-            for (const contribution of targetContributions) {
-                points += contribution.points;
-                reactions += contribution.reaction;
-            }
-            if (targetContributions !== undefined) {
-                setContributionInfo((contributionInfo) => [...contributionInfo, {
-                    user_id: user.user_id,
-                    points: points,
-                    reactions: reactions,
-                }]);
-            }
-        })
-
-        for (const contribution of sentContributions) {
-            setSentPoints(sentPoints + contribution.points);
-            setSentReactions(sentReactions + contribution.reaction);
-        }
-
-        for (const contribution of receivedContributions) {
-            setReceivedPoints(receivedPoints + contribution.points)
-            setReceivedReactions(receivedReactions + contribution.reaction);
-        }
-    }
 
     useEffect(() => {
         if (!didEffect.current){
@@ -209,12 +92,8 @@ function Report() {
                 return;
             };
 
-            fetchAllUsersInWorkspace();
-            fetchContributions();
-            fetchContributionSent();
-            fetchContributionReceived();
-            calcContributions();
-            console.log(users)
+            fetchUserInfo();
+            fetchContributionReport();
         }
     }, []);
 
@@ -225,19 +104,20 @@ function Report() {
                 title={"週間レポート"}
             />
             <div className="report-container">
-                <div className="report-div">{sentPoints},{sentReactions},{receivedPoints},{receivedReactions}</div>
-                <ul className="report-ul">
-                    {contributionInfo.map((user) => {
-                        return (
-                            <li>
-                                <div>{user.user_id},ポイント:{user.points},リアクション:{user.reactions}</div>
-                            </li>
-                        );
+                <div className="report-div">
+                    {contributionReport.map((report) => {
+                        if (report.user_id === userId) {
+                            return (
+                                <div>{report.contribution_sent},{report.points_sent},{report.reaction_sent},{report.contribution_received},{report.points_received},{report.reaction_received}</div>
+                            ); 
+                        };
                     })}
-                    {users.map((user) => {
+                </div>
+                <ul className="report-ul">
+                    {contributionReport.map((report) => {
                         return (
-                            <li>
-                                <div>{user.user_id},ポイント:{user.name},リアクション:{user.role}</div>
+                            <li id={report.user_id}>
+                                <div>{report.name},{report.contribution_received},{report.points_received},{report.reaction_received}</div>
                             </li>
                         );
                     })}
