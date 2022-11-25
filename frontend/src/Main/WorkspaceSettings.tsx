@@ -15,6 +15,12 @@ type changeRoleRes = {
     role: string;
 }
 
+function getRandomInt(min: number, max: number) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
+}
+
 function WorkspaceSettings() {
 
     const navigate = useNavigate();
@@ -216,6 +222,10 @@ function WorkspaceSettings() {
     };
 
     const createUser = (email: string, name: string, role: string) => {
+
+        const randNumForUser: string = getRandomInt(1,15).toString();
+        const userAvatarUrl = `img/user/${randNumForUser}`;
+
         const options: AxiosRequestConfig = {
             url: `${BASE_URL}/api/workspace/invite`,
             method: "POST",
@@ -226,8 +236,9 @@ function WorkspaceSettings() {
             data: {
                 email: email,
                 name: name,
-                role: role
-            }
+                role: role,
+                avatar_url: userAvatarUrl,
+            },
         };
 
         axios(options)

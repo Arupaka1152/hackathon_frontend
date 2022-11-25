@@ -6,6 +6,12 @@ import { Workspace } from "./Workspaces"
 
 const BASE_URL = "https://hackathon-backend-n7qi3ktvya-uc.a.run.app";
 
+function getRandomInt(min: number, max: number) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
+}
+
 function CreateWorkspace() {
     const navigate = useNavigate();
     const [ workspaceName, setWorkspaceName ] = useState("");
@@ -24,6 +30,11 @@ function CreateWorkspace() {
             return;
         };
 
+        const randNumForWorkspace: string = getRandomInt(1,8).toString();
+        const randNumForUser: string = getRandomInt(1,15).toString();
+        const workspaceAvatarUrl = `img/workspace/${randNumForWorkspace}`;
+        const userAvatarUrl = `img/user/${randNumForUser}`;
+
         const options: AxiosRequestConfig = {
             url: `${BASE_URL}/workspace`,
             method: "POST",
@@ -32,7 +43,9 @@ function CreateWorkspace() {
             },
             data: {
                 workspace_name: workspaceName,
+                workspace_avatar_url: workspaceAvatarUrl,
                 user_name: userName,
+                user_avatar_url: userAvatarUrl,
             }
         };
 

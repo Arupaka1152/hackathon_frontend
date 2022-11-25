@@ -139,9 +139,8 @@ function EditContribution(props: editContributionProps) {
                     ></input>
                 </div>
                 <div className="PostContribution-container Contribution-ic2">
-                    <input
-                        className="Contribution-input"
-                        type="text"
+                    <textarea
+                        className="Contribution-message-input"
                         value={props.targetContributionContent.message}
                         placeholder="メッセージ"
                         onChange={(e) => {
@@ -151,7 +150,7 @@ function EditContribution(props: editContributionProps) {
                                 message: e.target.value,
                             });
                         }}
-                    ></input>
+                    ></textarea>
                 </div>
                 <div className="PostContribution-container Contribution-ic2">
                     <button 

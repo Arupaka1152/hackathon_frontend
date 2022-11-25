@@ -146,13 +146,12 @@ function PostContribution(props: postContributionProps) {
                     ></input>
                 </div>
                 <div className="PostContribution-container Contribution-ic2">
-                    <input
-                        className="Contribution-input"
-                        type="text"
+                    <textarea
+                        className="Contribution-message-input"
                         value={message}
                         placeholder="メッセージ"
                         onChange={(e) => setMessage(e.target.value)}
-                    ></input>
+                    ></textarea>
                 </div>
                 <div className="PostContribution-container Contribution-ic2">
                     <button 

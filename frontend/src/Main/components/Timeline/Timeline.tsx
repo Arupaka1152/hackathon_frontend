@@ -83,6 +83,16 @@ function Timeline(props: timelineProps) {
         return name;
     };
 
+    const convertIdToUrl = (userId: string) => {
+        let url: string = "img/user/unknown";
+        props.members.map((member) => {
+            if (userId === member.user_id) {
+                url = member.avatar_url
+            }
+        });
+        return url;
+    };
+
     const onClickSendButton = (contributionId: string) => {
         sendReaction(contributionId);
     };
@@ -91,26 +101,51 @@ function Timeline(props: timelineProps) {
         <div className="Timeline-container">
             <ul className="contribution_ul">
                 {props.contributions.map((contribution) => {
+                    const senderUrl = convertIdToUrl(contribution.sender_id);
+                    const senderAvatarUrl = `${process.env.PUBLIC_URL}/${senderUrl}.png`;
+                    const receiverUrl = convertIdToUrl(contribution.receiver_id);
+                    const receiverAvatarUrl = `${process.env.PUBLIC_URL}/${receiverUrl}.png`;
+
                     return (
                     <li className="contribution_li" key={contribution.contribution_id}>
-                        <div className="contribution">
-                            {convertIdToName(contribution.sender_id)} さんから
-                            {convertIdToName(contribution.receiver_id)} さんへ
+                        <div className="img_container">
+                            <img 
+                                src={senderAvatarUrl} 
+                                alt=""
+                                className="avatar_img"
+                            />
+                            <div className="info-container">
+                                <p>{convertIdToName(contribution.sender_id)}</p>
+                            </div>
+                            <img 
+                                src={`${process.env.PUBLIC_URL}/img/To.png`}
+                                alt="" 
+                                className="to_img"
+                            />
+                            <img 
+                                src={receiverAvatarUrl}
+                                alt="" 
+                                className="avatar_img"
+                            />
+                            <div className="info-container">
+                                <p>{convertIdToName(contribution.receiver_id)}</p>
+                            </div>
+                            <div className="point">
+                                + {contribution.points} pt
+                            </div>
                         </div>
-                        <div className="contribution">
-                            メッセージ:{contribution.message}
-                        </div>
-                        <div className="contribution">
-                            {contribution.points}ポイント
-                        </div>
-                        <div className="contribution">
-                            投稿:{contribution.created_at}
-                            更新:{contribution.update_at}
-                        </div>
-                        <button 
-                            className="reaction-button"
-                            onClick={() => onClickSendButton(contribution.contribution_id)}
-                        >いいね！{contribution.reaction}</button>
+                        <div className="content-container">
+                            <div className="contribution">
+                                <p className="message">{contribution.message}</p>
+                            </div>
+                            <div className="contribution-createdAt">
+                                <p className="created_at">{contribution.created_at}</p>
+                            </div>
+                            <button 
+                                className="reaction-button"
+                                onClick={() => onClickSendButton(contribution.contribution_id)}
+                            >いいね！{contribution.reaction}</button>
+                        </div> 
                     </li>
                     );
                 })}
