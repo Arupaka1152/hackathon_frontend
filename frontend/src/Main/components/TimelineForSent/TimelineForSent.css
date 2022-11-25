@@ -55,9 +55,80 @@
     padding-top: 5px;
     padding-bottom: 5px;
     border-radius: 12px;
+    display: inline-block;
+    width: 100%;
 }
 
 .contribution {
-    padding-top: 2px;
+    padding-top: 20px;
     padding-bottom: 2px;
+}
+
+.avatar_img {
+    margin-top: 5px;
+    border-radius: 50%;
+    width:  50px;
+    height: 50px;
+    display: inline-block;
+}
+
+.info-container {
+    width: 400px;
+    display: inline-block;
+    margin-top: 15px;
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: left;
+}
+
+.img_container {
+    display: flex;
+    margin-top: 5px;
+    margin-left: 20px;
+    width: 80%;
+}
+
+.content-container {
+    margin-top: 5px;
+    margin-left: 20px;
+    display: inline-block;
+    width: 80%;
+    text-align: left;
+}
+
+.h4 .h6 {
+    display: inline;
+}
+
+.contribution-createdAt {
+    margin-top: 20px;
+}
+
+.point {
+    width: 200px;
+    display: inline-block;
+    margin-top: 15px;
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: 400;
+    text-align: left;
+}
+
+.to_img {
+    margin-top: 19px;
+    margin-right: 25px;
+    width:  25px;
+    height: 25px;
+    display: inline-block;
+}
+
+.created_at {
+    font-size: 13px;
+    font-weight: 300;
+}
+
+.message {
+    font-size: 17px;
+    font-weight: 400;
 }

@@ -20,6 +20,8 @@ function Sidebar() {
     const accessToken = sessionStorage.getItem("authentication");
     const workspaceId = sessionStorage.getItem("workspace_id");
     let workspaceName = sessionStorage.getItem('workspace_name');
+    const workspaceAvatarUrl = sessionStorage.getItem("workspace_avatar_url");
+    const avatarUrl = workspaceAvatarUrl ?? "img/workspace/unknown";
 
     const fetchUserInfo = () => {
         const options: AxiosRequestConfig = {
@@ -62,6 +64,11 @@ function Sidebar() {
     return( 
     <div className="Sidebar">
         <div className="SidebarTop">
+            <img 
+                src={`${process.env.PUBLIC_URL}/${avatarUrl}.png`}
+                alt="" 
+                className="workspace_img"
+            />
             <p className="WorkspaceName">{workspaceName}</p>
         </div>
         <ul className="SidebarList">

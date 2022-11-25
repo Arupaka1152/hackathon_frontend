@@ -63,7 +63,8 @@ function Workspaces() {
         }
     }, []);
 
-    const onClickEnterButton = (workspaceId: string, workspaceName: string) => {
+    const onClickEnterButton = (workspaceId: string, workspaceName: string, avatarUrl: string) => {
+        sessionStorage.setItem('workspace_avatar_url', avatarUrl);
         sessionStorage.setItem('workspace_id', workspaceId);
         sessionStorage.setItem('workspace_name', workspaceName);
         navigate("/main");
@@ -73,18 +74,30 @@ function Workspaces() {
         <div>
             <div className="workspaces">
                 <div className="workspaces-title">ワークスペースにログイン</div>
-                <ul className="WorkspaceList">
+                <div className="WorkspaceList">
                     {workspaces.map((workspace) => {
-                        return <li className="Workspace_info" key={workspace.id}>
-                            <div className="Workspace_name">{workspace.name}</div>
-                            <button 
-                                className="Workspaces-button"
-                                onClick={() => onClickEnterButton(workspace.id, workspace.name)}
-                            >Enter
-                            </button>
-                        </li>;
+                        let avatarUrl = "img/workspace/unknown";
+                        if (workspace.avatar_url !== "") {
+                            avatarUrl = workspace.avatar_url
+                        }
+
+                        return(
+                            <div className="Workspace_info" key={workspace.id}>
+                                <img
+                                    src={`${process.env.PUBLIC_URL}/${avatarUrl}.png`}
+                                    alt=""
+                                    className="workspace_img"
+                                />
+                                <div className="Workspace_name">{workspace.name}</div>
+                                <button 
+                                    className="Workspaces-button"
+                                    onClick={() => onClickEnterButton(workspace.id, workspace.name, avatarUrl)}
+                                >Enter
+                                </button>
+                            </div>                            
+                        );
                     })}
-                </ul>
+                </div>
                 <Link to="/workspaces/create"><div className="createWorkspace-link" >ワークスペース作成はこちらから</div></Link>
             </div>
         </div>
