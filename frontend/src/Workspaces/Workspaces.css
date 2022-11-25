@@ -10,6 +10,8 @@
     background-color: #000;
     justify-content: center;
     height: 100vh;
+    width: 100%;
+    position: fixed;
 }
 
 .workspaces-title {
@@ -28,11 +30,23 @@
     font-size: 20px;
     font-weight: 600;
     margin-top: 20px;
-    text-align: center;
+    justify-content: center;
+    list-style: none;
+    display: flex;
+    overflow-x: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.WorkspaceList::-webkit-scrollbar {
+    display: none;
 }
 
 .Workspaces_info {
+    display: inline-block;
     background-color: #303245;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .Workspaces_name {
@@ -56,8 +70,10 @@
     height: 50px;
     margin-top: 25px;
     margin-bottom: 25px;
+    margin-left: 5px;
+    margin-right: 5px;
     text-align: center;
-    width: 200px;
+    width: 250px;
 }
 
 .createWorkspace-link {

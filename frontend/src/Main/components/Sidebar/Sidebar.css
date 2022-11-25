@@ -56,3 +56,11 @@
     font-weight: 600;
     font-size: 23px;
 }
+
+.workspace_img {
+    margin-top: 5px;
+    border-radius: 50%;
+    width:  100px;
+    height: 100px;
+    margin-bottom: 15px;
+}
