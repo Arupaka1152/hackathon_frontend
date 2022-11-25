@@ -1,10 +1,23 @@
 .home-div {
     background-color: #15172b;
-    border-radius: 20px;
-    box-sizing: border-box;
-    height: 400px;
-    padding: 20px;
-    width: 340px;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+}
+
+.home-title {
+    color: #eee;
+    font-size: 100px;
+    font-weight: 600;
+    margin-top: 200px;
+}
+
+.home-subtitle {
+    color: #eee;
+    font-size: 50px;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 100px;
 }
 
 .signup-link {
