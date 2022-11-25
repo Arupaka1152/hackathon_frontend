@@ -48,6 +48,13 @@
     margin-top: 30px;
     width: 80%;
     margin-left: 10%;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.report-container-under::-webkit-scrollbar {
+    display: none;
 }
 
 .report-title {

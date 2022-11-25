@@ -34,17 +34,17 @@ function Main() {
         axios(options)
             .then((res: AxiosResponse<Contribution[]>) => {
                 if (res.data.length >= 1) {
-                    for (let i = 0; i < res.data.length; i++) {
+                    for (let i = 1; i < res.data.length + 1; i++) {
                         setContributions((contributions) => [...contributions, { 
-                            contribution_id: res.data[i].contribution_id,
-                            workspace_id: res.data[i].workspace_id,
-                            sender_id: res.data[i].sender_id,
-                            receiver_id: res.data[i].receiver_id,
-                            points: res.data[i].points,
-                            message: res.data[i].message,
-                            reaction: res.data[i].reaction,
-                            created_at: res.data[i].created_at,
-                            update_at: res.data[i].update_at
+                            contribution_id: res.data[res.data.length - i].contribution_id,
+                            workspace_id: res.data[res.data.length - i].workspace_id,
+                            sender_id: res.data[res.data.length - i].sender_id,
+                            receiver_id: res.data[res.data.length - i].receiver_id,
+                            points: res.data[res.data.length - i].points,
+                            message: res.data[res.data.length - i].message,
+                            reaction: res.data[res.data.length - i].reaction,
+                            created_at: res.data[res.data.length - i].created_at,
+                            update_at: res.data[res.data.length - i].update_at
                         }])
                     }
                 }
