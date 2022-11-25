@@ -3,6 +3,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Header/Header";
 import { useNavigate } from "react-router-dom";
 import { UserInfo } from "./types/User";
+import { User } from "./types/User";
 import "./Report.css";
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 
@@ -11,6 +12,7 @@ const BASE_URL = "https://hackathon-backend-n7qi3ktvya-uc.a.run.app";
 type ContributionReport = {
     user_id: string
     name: string
+    avatar_url: string
     contribution_sent: number
     points_sent: number
     reaction_sent: number
@@ -66,13 +68,14 @@ function Report() {
                     setContributionReport((report) => [...report, {
                         user_id: res.data[i].user_id,
                         name: res.data[i].name,
+                        avatar_url: res.data[i].avatar_url,
                         contribution_sent: res.data[i].contribution_sent,
                         points_sent: res.data[i].points_sent,
                         reaction_sent: res.data[i].reaction_sent,
                         contribution_received: res.data[i].contribution_received,
                         points_received: res.data[i].points_received,
                         reaction_received: res.data[i].reaction_received
-                    }])
+                    }]);
                 }
             })
             .catch((e: AxiosError<{ error: string }>) => {
@@ -104,24 +107,62 @@ function Report() {
                 title={"週間レポート"}
             />
             <div className="report-container">
-                <div className="report-div">
-                    {contributionReport.map((report) => {
-                        if (report.user_id === userId) {
-                            return (
-                                <div>{report.contribution_sent},{report.points_sent},{report.reaction_sent},{report.contribution_received},{report.points_received},{report.reaction_received}</div>
-                            ); 
-                        };
-                    })}
-                </div>
-                <ul className="report-ul">
-                    {contributionReport.map((report) => {
+                {contributionReport.map((report) => {
+                    if (report.user_id === userId) {
                         return (
-                            <li id={report.user_id}>
-                                <div>{report.name},{report.contribution_received},{report.points_received},{report.reaction_received}</div>
-                            </li>
-                        );
-                    })}
-                </ul>
+                            <div className="report-container-over">
+                                <div className="report-container-left">
+                                    <p className="report-title">今週受け取ったコントリビューション</p>
+                                    <hr />
+                                    <p className="report-content">コントリビューション数 :  {report.contribution_received}</p>
+                                    <p className="report-content">ポイント : {report.points_received}</p>
+                                    <p className="report-content">リアクション数 : {report.reaction_received}</p>
+                                </div>
+                                <div className="report-container-right">
+                                    <p className="report-title">今週送ったコントリビューション</p>
+                                    <hr />
+                                    <p className="report-content">コントリビューション数 : {report.contribution_sent}</p>
+                                    <p className="report-content">ポイント : {report.points_sent}</p>
+                                    <p className="report-content">リアクション数 : {report.reaction_sent}</p>
+                                </div>
+                            </div>
+                        ); 
+                    };
+                })}
+                
+                <div className="report-container-under">
+                    <div className="report-table-title">今週メンバーが受け取ったコントリビューション</div>
+                    <table className="report-table">
+                        <thead className="report-thead">
+                            <tr className="report-tr">
+                                <th className="report-icon"></th>
+                                <th className="report-user">ユーザー名</th>
+                                <th className="report-contribution">コントリビューション数</th>
+                                <th className="report-points">ポイント</th>
+                                <th className="report-reaction">リアクション数</th>
+                            </tr>
+                        </thead>
+                        <tbody className="report-body">
+                            {contributionReport.map((report) => {
+                                return (
+                                    <tr>
+                                        <th>
+                                            <img 
+                                                src={`${process.env.PUBLIC_URL}/${report.avatar_url}.png`}
+                                                alt="" 
+                                                className="member_icon"
+                                            />
+                                        </th>
+                                        <th>{report.name}</th>
+                                        <th>{report.contribution_received}</th>
+                                        <th>{report.points_received}</th>
+                                        <th>{report.reaction_received}</th>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     )

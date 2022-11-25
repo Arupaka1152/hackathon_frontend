@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "./Members.css";
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 import { User } from "./types/User";
+import UserSettings from "./UserSettings";
 
 const BASE_URL = "https://hackathon-backend-n7qi3ktvya-uc.a.run.app";
 
@@ -69,13 +70,34 @@ function Members() {
                 title={"メンバー一覧"}
             />
             <div className="members-container">
-                <ul className="memberList">
-                    {users.map((user) => {
-                        return <li className="member_info" key={user.user_id}>
-                            <div className="member">{user.name},{user.description},{user.role}</div>
-                        </li>;
-                    })}
-                </ul>
+                <table className="members-table">
+                    <thead className="members-thead">
+                        <tr className="members-tr">
+                            <th className="t-icon"></th>
+                            <th className="t-user">ユーザー名</th>
+                            <th className="t-description">自己紹介</th>
+                            <th className="t-role">役職</th>
+                        </tr>
+                    </thead>
+                    <tbody className="members-tbody">
+                        {users.map((user) => {
+                            return(
+                                <tr className="members-tr">
+                                    <td>
+                                        <img 
+                                            src={`${process.env.PUBLIC_URL}/${user.avatar_url}.png`}
+                                            alt="" 
+                                            className="member_img"
+                                        />
+                                    </td>
+                                    <td>{user.name}</td>
+                                    <td>{user.description}</td>
+                                    <td>{user.role}</td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
             </div>
         </div>
     )

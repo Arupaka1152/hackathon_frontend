@@ -107,6 +107,7 @@
 }
 
 .workspace-settings-table {
+    background-color: white;
     margin-top: 10px;
     width: 100%;
     border-spacing: 0px 10px;

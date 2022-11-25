@@ -12,7 +12,7 @@
     width: 83%;
     transform: translate(20.5%, 7vh);
     position: fixed;
-    text-align: center;
+    justify-content: center;
 }
 
 .report-ul {
@@ -20,6 +20,94 @@
     list-style-type: none;
 }
 
-.report-div {
-    margin-top: 20px;
+.report-container-left {
+    display: inline-block;
+    background-color: rgb(255, 60, 0);
+    width: 35%;
+    height: 100%;
+    margin-left: 10%;
+}
+
+.report-container-right {
+    display: inline-block;
+    background-color: rgb(50, 62, 190);
+    width: 35%;
+    height: 100%;
+    margin-left: 10%;
+}
+
+.report-container-over {
+    display: flex;
+    margin-top: 40px;
+    width: 100%;
+    height: 180px;
+}
+
+.report-container-under {
+    display: inline-block;
+    margin-top: 30px;
+    width: 80%;
+    margin-left: 10%;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.report-container-under::-webkit-scrollbar {
+    display: none;
+}
+
+.report-title {
+    color: white;
+    font-size: 20px;
+    margin-left: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.report-content {
+    color: white;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.report-table {
+    width: 100%;
+    background-color: white;
+}
+
+.report-table-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.report-icon {
+    width: 10%;
+}
+
+.report-user {
+    width: 15%;
+}
+
+.report-contribution {
+    width: 25%;
+}
+
+.report-points {
+    width: 25%;
+}
+
+.report-reaction {
+    width: 25%;
+}
+
+.member_icon {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 10px;
 }
