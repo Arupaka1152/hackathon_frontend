@@ -13,8 +13,46 @@
     transform: translate(20.5%, 7vh);
     position: fixed;
     text-align: center;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
-.memberList {
-    margin-top: 20px;
+.members-container::-webkit-scrollbar {
+    display: none;
+}
+
+.member_img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.members-table {
+    background-color: white;
+    margin-top: 50px;
+    width: 80%;
+    margin-left: 10%;
+}
+
+.members-thead {
+    margin-bottom: 3px;
+}
+
+.t-icon {
+    width: 10%;
+}
+
+.t-user {
+    width: 20%;
+}
+
+.t-description {
+    width: 60%;
+}
+
+.t-role {
+    width: 10%;
 }
