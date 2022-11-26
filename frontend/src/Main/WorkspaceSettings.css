@@ -21,6 +21,23 @@
     box-sizing: border-box;
     color: #eee;
     cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    height: 30px;
+    text-align: center;
+    width: 90px;
+    margin-left: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.role-edit-button {
+    background-color: green;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
     font-size: 10px;
     font-weight: 600;
     height: 20px;
@@ -30,6 +47,23 @@
 }
 
 .workspace-delete-button {
+    background-color: red;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    height: 30px;
+    text-align: center;
+    width: 90px;
+    margin-left: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.user-delete-button {
     background-color: red;
     border-radius: 12px;
     border: 0;
@@ -51,12 +85,14 @@
     box-sizing: border-box;
     color: #eee;
     cursor: pointer;
-    font-size: 10px;
+    font-size: 15px;
     font-weight: 600;
-    height: 20px;
+    height: 30px;
     margin-top: 10px;
     text-align: center;
-    width: 60px;
+    width: 90px;
+    margin-top: 15px;
+    margin-bottom: 10px;
 }
 
 .workspace-settings-form {
@@ -111,6 +147,7 @@
     margin-top: 10px;
     width: 100%;
     border-spacing: 0px 10px;
+    border-radius: 12px;
 }
 
 .workspace-settings-thead {
@@ -123,4 +160,57 @@
 
 .workspace-settings-tr {
     margin-top: 3px;
+}
+
+.edit-container {
+    display: block;
+    background-color: white;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 12px;
+}
+
+.invite-container {
+    display: block;
+    background-color: white;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 12px;
+}
+
+.delete-container {
+    display: block;
+    background-color: white;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 12px;
+}
+
+.workspace-settings-title {
+    margin-top: 10px;
+}
+
+.workspace-settings-ic1 {
+    margin-top: 10px;
+}
+
+.workspace-settings-ic2 {
+    margin-top: 10px;
+}
+
+.workspace-settings-input {
+    font-size: 15px;
+}
+
+.workspace-settings-textarea {
+    font-size: 15px;
+    width: 300px;
+    height: 45px;
+}
+
+.select-role{
+    height: 22px;
+    width: 160px;
+    padding: 4px 20px 0;
+    text-align: center;
 }

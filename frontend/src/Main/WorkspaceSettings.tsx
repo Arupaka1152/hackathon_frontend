@@ -309,76 +309,87 @@ function WorkspaceSettings() {
             />
             <div className="workspace-settings-container">
                 <div className="workspace-settings-left" >
-                    <form className="workspace-settings-form">
-                        <div className="workspace-settings-title">ワークスペース情報を変更</div>
-                        <div className="workspace-input-container workspace-settings-ic1">
-                            <input
+                    <div className="edit-container">
+                        <form className="workspace-settings-form">
+                            <div className="workspace-settings-title"><h3>ワークスペース情報を変更</h3></div>
+                            <div className="workspace-input-container workspace-settings-ic1">
+                                <p>ワークスペース名</p>
+                                <input
+                                    className="workspace-settings-input"
+                                    type="text"
+                                    value={workspaceName}
+                                    placeholder={workspaceName}
+                                    onChange={(e) => setWorkspaceName(e.target.value)}
+                                ></input>
+                            </div>
+                            <div className="workspace-input-container workspace-settings-ic2">
+                                <p>ワークスペース紹介文</p>
+                                <textarea
+                                    className="workspace-settings-textarea"
+                                    value={workspaceDescription}
+                                    placeholder={workspaceDescription}
+                                    onChange={(e) => setWorkspaceDescription(e.target.value)}
+                                ></textarea>
+                            </div>
+                            <button 
+                                className="workspace-edit-button"
+                                type="submit"
+                                onClick={onSubmitWorkspaceSettings}
+                            >変更</button>
+                        </form>
+                    </div>
+                    <div className="invite-container">
+                        <form className="workspace-settings-form">
+                            <div className="workspace-settings-title"><h3>ワークスペースにメンバーを招待</h3></div>
+                            <div className="workspace-input-container workspace-settings-ic1">
+                                <input
+                                    className="workspace-settings-input"
+                                    type="email"
+                                    value={email}
+                                    placeholder="メールアドレス"
+                                    onChange={(e) => setEmail(e.target.value)}
+                                ></input>
+                            </div>
+                            <div className="workspace-input-container workspace-settings-ic2">
+                                <input
                                 className="workspace-settings-input"
                                 type="text"
-                                value={workspaceName}
-                                placeholder={workspaceName}
-                                onChange={(e) => setWorkspaceName(e.target.value)}
+                                value={name}
+                                placeholder="ユーザー名"
+                                onChange={(e) => setName(e.target.value)}
                             ></input>
-                        </div>
-                        <div className="workspace-input-container workspace-settings-ic2">
-                            <input
-                                className="workspace-settings-input"
-                                type="text"
-                                value={workspaceDescription}
-                                placeholder={workspaceDescription}
-                                onChange={(e) => setWorkspaceDescription(e.target.value)}
-                            ></input>
-                        </div>
+                            </div>
+                            <div className="workspace-input-container workspace-settings-ic2">
+                                <select 
+                                    className="select-role"
+                                    onChange={(e) => {setRole(e.target.value)}}
+                                >
+                                    <option key="0" value="">役職を選択</option>
+                                    <option key="general" value="general">general</option>
+                                    <option key="manager" value="manager">manager</option>
+                                </select> 
+                            </div>
+                        </form>
                         <button 
-                            className="workspace-edit-button"
+                            className="workspace-invite-button"
                             type="submit"
-                            onClick={onSubmitWorkspaceSettings}
-                        >変更</button>
-                    </form>
-                    <form className="workspace-settings-form">
-                        <div className="workspace-settings-title">ワークスペースにメンバーを招待</div>
-                        <div className="workspace-input-container workspace-settings-ic1">
-                            <input
-                                className="workspace-settings-input"
-                                type="email"
-                                value={email}
-                                placeholder="メールアドレス"
-                                onChange={(e) => setEmail(e.target.value)}
-                            ></input>
-                        </div>
-                        <div className="workspace-input-container workspace-settings-ic2">
-                            <input
-                            className="workspace-settings-input"
-                            type="text"
-                            value={name}
-                            placeholder="ユーザー名"
-                            onChange={(e) => setName(e.target.value)}
-                        ></input>
-                        </div>
-                        <div className="workspace-input-container workspace-settings-ic2">
-                            <select onChange={(e) => {setRole(e.target.value)}}>
-                                <option key="0" value="">役職を選択</option>
-                                <option key="general" value="general">general</option>
-                                <option key="manager" value="manager">manager</option>
-                            </select> 
-                        </div>
-                    </form>
-                    <button 
-                        className="workspace-invite-button"
-                        type="submit"
-                        onClick={onSubmitInviteUser}
-                    >招待</button>
-                    <div className="workspace-delete-title">ワークスペースを削除</div>
-                    <button 
-                        className="workspace-delete-button"
-                        type="submit"
-                        onClick={onSubmitDeleteWorkspace}
-                    >削除</button>
+                            onClick={onSubmitInviteUser}
+                        >招待</button>
+                    </div>
+                    <div className="delete-container">
+                        <div className="workspace-delete-title"><h3>ワークスペースを削除</h3></div>
+                        <button 
+                            className="workspace-delete-button"
+                            type="submit"
+                            onClick={onSubmitDeleteWorkspace}
+                        >削除</button>
+                    </div>
                 </div>
                 <div className="workspace-settings-right" >
-                    <div className="workspace-settings-title">メンバー権限の編集・ユーザーの削除</div>
                     <div className="table-container">
+                        <div className="workspace-settings-title"><h3>メンバー権限の編集・ユーザーの削除</h3></div>
                         <table className="workspace-settings-table">
+                            <caption></caption>
                             <thead className="workspace-settings-thead">
                                 <tr className="workspace-settings-tr">
                                     <th>ユーザー名</th>
@@ -401,14 +412,14 @@ function WorkspaceSettings() {
                                                         <option key="manager" value="manager">manager</option>
                                                     </select>    
                                                     <button 
-                                                        className="workspace-edit-button"
+                                                        className="role-edit-button"
                                                         onClick={() => {onSubmitChangeRole(user.user_id)}}
                                                     >変更</button>
                                                 </div>
                                             </td>
                                             <td>
                                                 <button 
-                                                    className="workspace-delete-button"
+                                                    className="user-delete-button"
                                                     onClick={() => {onSubmitDeleteUserFromWorkspace(user.user_id)}}
                                                 >削除</button>
                                             </td>
