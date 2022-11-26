@@ -132,39 +132,44 @@ function UserSettings() {
                 title={"ユーザー設定"}
             />
             <div className="user-settings-container">
-                <form className="user-settings-form">
-                    <div className="user-settings-title">ユーザー情報を変更</div>
-                    <div className="user-settings-input-container user-settings-ic1">
-                        <input
-                            className="user-settings-input"
-                            type="text"
-                            value={name}
-                            placeholder={name}
-                            onChange={(e) => setName(e.target.value)}
-                        ></input>
+                <div className="user-attribute-container">
+                    <form className="user-settings-form">
+                        <div className="user-settings-title"><h4>ユーザー情報を変更</h4></div>
+                        <div className="user-settings-input-container user-settings-ic1">
+                            <p>ユーザー名</p> 
+                            <input
+                                className="user-settings-input"
+                                type="text"
+                                value={name}
+                                placeholder={name}
+                                onChange={(e) => setName(e.target.value)}
+                            ></input>
+                        </div>
+                        <div className="user-settings-input-container user-settings-ic2">
+                            <p>自己紹介文</p>
+                            <textarea
+                                className="user-settings-textarea"
+                                value={description}
+                                placeholder={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                            ></textarea>
+                        </div>
+                        <button 
+                            className="user-settings-button"
+                            type="submit"
+                            onClick={onSubmitUserSettings}
+                        >変更</button>
+                    </form>
+                </div>
+                <div className="user-leave-container">
+                    <div className="user-leave-title"><h4>ワークスペースから退出</h4></div>
+                        <button 
+                            className="user-leave-button"
+                            type="submit"
+                            onClick={onSubmitLeaveWorkspace}
+                        >退出</button>
                     </div>
-                    <div className="user-settings-input-container user-settings-ic2">
-                        <input
-                            className="user-settings-input"
-                            type="text"
-                            value={description}
-                            placeholder={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                        ></input>
-                    </div>
-                    <button 
-                        className="user-settings-button"
-                        type="submit"
-                        onClick={onSubmitUserSettings}
-                    >変更</button>
-                </form>
-                <div className="user-leave-title">ワークスペースから退出</div>
-                <button 
-                    className="user-leave-button"
-                    type="submit"
-                    onClick={onSubmitLeaveWorkspace}
-                >退出</button>
-            </div>
+                </div>
         </div>
     )
 }

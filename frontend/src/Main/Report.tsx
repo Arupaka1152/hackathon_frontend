@@ -112,14 +112,14 @@ function Report() {
                         return (
                             <div className="report-container-over">
                                 <div className="report-container-left">
-                                    <p className="report-title">今週受け取ったコントリビューション</p>
+                                    <p className="report-title">受け取ったコントリビューション</p>
                                     <hr />
                                     <p className="report-content">コントリビューション数 :  {report.contribution_received}</p>
                                     <p className="report-content">ポイント : {report.points_received}</p>
                                     <p className="report-content">リアクション数 : {report.reaction_received}</p>
                                 </div>
                                 <div className="report-container-right">
-                                    <p className="report-title">今週送ったコントリビューション</p>
+                                    <p className="report-title">送ったコントリビューション</p>
                                     <hr />
                                     <p className="report-content">コントリビューション数 : {report.contribution_sent}</p>
                                     <p className="report-content">ポイント : {report.points_sent}</p>
@@ -131,7 +131,7 @@ function Report() {
                 })}
                 
                 <div className="report-container-under">
-                    <div className="report-table-title">今週メンバーが受け取ったコントリビューション</div>
+                    <div className="report-table-title">メンバーが受け取ったコントリビューション</div>
                     <table className="report-table">
                         <thead className="report-thead">
                             <tr className="report-tr">
