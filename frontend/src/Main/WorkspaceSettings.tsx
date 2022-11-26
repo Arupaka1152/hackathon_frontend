@@ -392,6 +392,7 @@ function WorkspaceSettings() {
                             <caption></caption>
                             <thead className="workspace-settings-thead">
                                 <tr className="workspace-settings-tr">
+                                    <th></th>
                                     <th>ユーザー名</th>
                                     <th>権限</th>
                                     <th>権限を変更</th>
@@ -402,6 +403,13 @@ function WorkspaceSettings() {
                                 {users.map((user) => {
                                     return(
                                         <tr className="workspace-settings-tr">
+                                            <td>
+                                                <img 
+                                                    src={`${process.env.PUBLIC_URL}/${user.avatar_url}.png`}
+                                                    alt="" 
+                                                    className="setting_img"
+                                                />
+                                            </td>
                                             <td>{user.name}</td>
                                             <td>{user.role}</td>
                                             <td>

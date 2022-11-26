@@ -89,6 +89,7 @@ function Workspaces() {
                                     className="workspace_img"
                                 />
                                 <div className="Workspace_name">{workspace.name}</div>
+                                <div className="Workspace_description">{workspace.description}</div>
                                 <button 
                                     className="Workspaces-button"
                                     onClick={() => onClickEnterButton(workspace.id, workspace.name, avatarUrl)}

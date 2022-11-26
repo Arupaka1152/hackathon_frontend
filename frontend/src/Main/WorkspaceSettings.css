@@ -214,3 +214,12 @@
     padding: 4px 20px 0;
     text-align: center;
 }
+
+.setting_img {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 10px;
+}
